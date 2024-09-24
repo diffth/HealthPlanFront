@@ -164,13 +164,10 @@ const SubscribeLRead = (props) => {
     
     
     const callReplyListApi = (sno) => {
-        
         axios.get(`http://localhost:8080/sreplies/list/${sno}`)
         .then(response => {
             try {
                     setResponseReplyList(response);
-                    console.log("=================> 1 " + sno);
-                    console.log("=================> 2 " + response.data);
                     setAppend_ReplyList(ReplyListAppend(response.data));
                 } catch (error) {
                     alert('작업중 오류가 발생하였습니다1.');
@@ -179,9 +176,7 @@ const SubscribeLRead = (props) => {
             .catch(error => { alert('작업중 오류가 발생하였습니다2.'); return false; });
     }
 
-
     const ReplyListAppend = (replyList) => {
-        console.log("=================> 3 " + replyList.data);
         let result = []
         const currentUser = '1';
 
@@ -208,7 +203,7 @@ const SubscribeLRead = (props) => {
                                                 {/* {moment(data.modidate).fromNow()} */}
                                             </span>
                                         </>
-                                    {/* )} */}
+                                    {/* {)}} */}
                                 </span>
                             </p>
                             <p style={{ color: '#525252' }}>{data.rcomment}</p>
@@ -447,14 +442,12 @@ const SubscribeLRead = (props) => {
                             justifyContent: 'center',
                             backgroundColor: 'white'
                         }
-                    }}
-                >
+                    }}>
                     <h2>댓글 수정</h2>
                     <br></br>
                     <input style={{ height: '30%', width: '80%', padding: '15px' }}
                         value={editedContent}
-                        onChange={(e) => setEditedContent(e.target.value)}
-                    ></input>
+                        onChange={(e) => setEditedContent(e.target.value)} ></input>
                     <br></br>
                     <div style={{ display: 'flex' }}>
                         <button className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={handleEditSubmit}>저장</button>

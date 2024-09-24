@@ -51,6 +51,7 @@ const SubscribeLList = () => {
             var day = date.substr(8,2);
             var reg_date = year +'.'+month+'.'+day;
 
+            //list num
             var num = (nBoard.pageMaker.totalCount - (nBoard.pageMaker.cri.page - 1) * nBoard.pageMaker.cri.perPageNum - i);
 
             result.push(

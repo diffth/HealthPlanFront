@@ -29,7 +29,7 @@ const SubscribeLRead = (props) => {
 
     useEffect(() => {
         callNboardInfoApi();
-        // callReplyListApi(sno);
+        callReplyListApi(sno);
         // $("#modifyButton").hide();
         // $("#replyerDiv").hide();
         // $("#snoDiv").hide();
@@ -131,12 +131,13 @@ const SubscribeLRead = (props) => {
 
         if (fnValidate()) {
             let jsonstr = $("form[name='frm2']").serialize();
+
             jsonstr = decodeURIComponent(jsonstr);
             let Json_form = JSON.stringify(jsonstr).replace(/\"/gi, '')
             Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
             let Json_data = JSON.parse(Json_form);
 
-            axios.post('/api/nreplys/add', Json_data)
+            axios.post('http://localhost:8080/sreplies/add', Json_data)
                 .then(response => {
                     try {
                         if (response.data == "SUCCESS") {
@@ -160,12 +161,16 @@ const SubscribeLRead = (props) => {
             confirmButtonText: confirmButtonText
         })
     }
-
+    
+    
     const callReplyListApi = (sno) => {
-        axios.get(`/api/nreplys/list/${sno}`)
-            .then(response => {
-                try {
+        
+        axios.get(`http://localhost:8080/sreplies/list/${sno}`)
+        .then(response => {
+            try {
                     setResponseReplyList(response);
+                    console.log("=================> 1 " + sno);
+                    console.log("=================> 2 " + response.data);
                     setAppend_ReplyList(ReplyListAppend(response.data));
                 } catch (error) {
                     alert('작업중 오류가 발생하였습니다1.');
@@ -176,8 +181,9 @@ const SubscribeLRead = (props) => {
 
 
     const ReplyListAppend = (replyList) => {
+        console.log("=================> 3 " + replyList.data);
         let result = []
-        const currentUser = memNickName;
+        const currentUser = '1';
 
         for (let i = 0; i < replyList.length; i++) {
             let data = replyList[i]
@@ -188,24 +194,24 @@ const SubscribeLRead = (props) => {
                 <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '19px' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <div style={{ width: '80px', height: '80px' }}>
-                            {/* <img src={require(`../../img/댓글2.gif`)} alt="댓글 이미지" /> */}
+                            <img src={require(`../../img/reply2.gif`)} alt="댓글 이미지" />
                         </div>
                         <div className="cat">
                             <p style={{ fontSize: '19px' }}>
                                 {data.replyer}{' '}
                                 <span style={{ fontSize: '12px' }}>
                                     {/* {formattedDate} */}
-                                    {data.modidate && (
+                                    {/* {data.modidate && ( */}
                                         <>
                                             <span style={{ marginLeft: '5px', color: 'grey' }}>(수정됨)</span>
                                             <span style={{ fontSize: '10px', color: 'grey' }}>
                                                 {/* {moment(data.modidate).fromNow()} */}
                                             </span>
                                         </>
-                                    )}
+                                    {/* )} */}
                                 </span>
                             </p>
-                            <p style={{ color: '#525252' }}>{data.replyText}</p>
+                            <p style={{ color: '#525252' }}>{data.rcomment}</p>
                         </div>
                     </div>
                     <div>
@@ -401,12 +407,12 @@ const SubscribeLRead = (props) => {
                             </tr>
                             <tr id='replyerDiv'>
                                 <td>
-                                    <input type="text" name="replyer" id="replyerVal" value={memNickName} />
+                                    <input type="text" name="mno" id="replyerVal" value={'1'} />
                                 </td>
                             </tr>
                             <tr>
                                 <td style={{ display: 'flex', alignItems: 'center' }}>
-                                    <input type="text" name="replyText" id="replyTextVal" placeholder='내용을 입력해주세요.' style={{ flex: '1', marginRight: '8px', height: '50px' }} />
+                                    <input type="text" name="rcomment" id="replyTextVal" placeholder='내용을 입력해주세요.' style={{ flex: '1', marginRight: '8px', height: '50px' }} />
                                     <a href="javascript:" className="bt_ty1 bt_ty3 submit_ty1 saveclass" onClick={(e) => submitClick(e)}>등록</a>
                                 </td>
                             </tr>

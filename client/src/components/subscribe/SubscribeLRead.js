@@ -178,11 +178,12 @@ const SubscribeLRead = (props) => {
 
     const ReplyListAppend = (replyList) => {
         let result = []
-        const currentUser = '1';
+        const currentUser = '111';
 
         for (let i = 0; i < replyList.length; i++) {
             let data = replyList[i]
-            const isCurrentUserCommentOwner = data.replyer === currentUser;
+            const isCurrentUserCommentOwner = true;
+            // const isCurrentUserCommentOwner = data.replyer === currentUser;
             // const formattedDate = moment(data.regdate).fromNow();
 
             result.push(
@@ -225,7 +226,7 @@ const SubscribeLRead = (props) => {
 
     const deleteComment = (index) => {
         sweetalertDelete2('삭제하시겠습니까?', () => {
-            axios.delete(`/api/nreplys/${responseReplyList.data[index].rno}/${sno}`, {
+            axios.delete(`http://localhost:8080/sreplies/delete/${responseReplyList.data[index].rno}/${sno}`, {
                 rNo: responseReplyList.data[index].rno,
                 sno: sno
             })
@@ -265,7 +266,7 @@ const SubscribeLRead = (props) => {
     };
 
     const handleEditSubmit = () => {
-        axios.put(`/api/nreplys/${selectRno}`, {
+        axios.put(`http://localhost:8080/sreplies/update/${selectRno}`, {
             rNo: selectRno,
             replyText: editedContent,
         })
@@ -355,8 +356,10 @@ const SubscribeLRead = (props) => {
                                         </td>
                                     </tr>
                                     <Modal
-                                        isOpen={modalIsOpen}
+                                        // isOpen={modalIsOpen}
                                         onRequestClose={closeImageModal}
+                                        appElement={document.getElementById('root') || undefined} //appElement={el}적용
+                                        // ariaHideApp={false}
                                         contentLabel="썸네일 이미지"
                                         style={{
                                             overlay: {
@@ -378,9 +381,9 @@ const SubscribeLRead = (props) => {
                                                 backgroundColor: 'rgba(0, 0, 0, 0.5)'
                                             }
                                         }}>
-                                        {selectedImage && (
+                                        {/* {selectedImage && (
                                             <img src={`/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
-                                        )}
+                                        )} */}
                                     </Modal>
                                 </table>
                                 <div id="modifyButton" class="btn_confirm mt20" style={{ "margin-bottom": "44px", textAlign: "center" }}>
@@ -423,6 +426,7 @@ const SubscribeLRead = (props) => {
                 <Modal
                     isOpen={isEditModalOpen}
                     onRequestClose={closeEditModal}
+                    appElement={document.getElementById('replyDiv')}
                     style={{
                         overlay: {
                             backgroundColor: 'rgba(0, 0, 0, 0.5)'
@@ -443,15 +447,17 @@ const SubscribeLRead = (props) => {
                             backgroundColor: 'white'
                         }
                     }}>
-                    <h2>댓글 수정</h2>
-                    <br></br>
-                    <input style={{ height: '30%', width: '80%', padding: '15px' }}
-                        value={editedContent}
-                        onChange={(e) => setEditedContent(e.target.value)} ></input>
-                    <br></br>
-                    <div style={{ display: 'flex' }}>
-                        <button className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={handleEditSubmit}>저장</button>
-                        <button className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={closeEditModal}>취소</button>
+                    <div id="replyDiv">
+                        <h2>댓글 수정</h2>
+                        <br></br>
+                        <input style={{ height: '30%', width: '80%', padding: '15px' }}
+                            value={editedContent}
+                            onChange={(e) => setEditedContent(e.target.value)} ></input>
+                        <br></br>
+                        <div style={{ display: 'flex' }}>
+                            <button className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={handleEditSubmit}>저장</button>
+                            <button className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={closeEditModal}>취소</button>
+                        </div>
                     </div>
                 </Modal>
             </article>

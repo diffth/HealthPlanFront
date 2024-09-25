@@ -57,12 +57,12 @@ const SubscribeLRead = (props) => {
     }
 
     const handleThumbnailClick = (thumbnailURL) => {
-        setModalIsOpen(true);
+        // setModalIsOpen(true);
         setSelectedImage(thumbnailURL);
     };
 
     const closeImageModal = () => {
-        setModalIsOpen(false);
+        // setModalIsOpen(false);
         setSelectedImage('');
     };
 
@@ -84,7 +84,7 @@ const SubscribeLRead = (props) => {
             axios.delete(`http://localhost:8080/subscribe/subscribeLessionDelete/${sno}`, {
                 // sno: sno
             }).then(response => {
-
+                
             }).catch(error => {
                 alert('작업중 오류가 발생하였습니다.'); return false;
             });
@@ -148,8 +148,7 @@ const SubscribeLRead = (props) => {
                     catch (error) {
                         alert('1. 작업중 오류가 발생하였습니다.')
                     }
-                })
-                .catch(error => { alert('2. 작업중 오류가 발생하였습니다.'); return false; });
+                }).catch(error => { alert('2. 작업중 오류가 발생하였습니다.'); return false; });
         }
     };
 
@@ -161,7 +160,6 @@ const SubscribeLRead = (props) => {
             confirmButtonText: confirmButtonText
         })
     }
-    
     
     const callReplyListApi = (sno) => {
         axios.get(`http://localhost:8080/sreplies/list/${sno}`)
@@ -194,17 +192,10 @@ const SubscribeLRead = (props) => {
                         </div>
                         <div className="cat">
                             <p style={{ fontSize: '19px' }}>
-                                {data.replyer}{' '}
+                                {data.replyer}
                                 <span style={{ fontSize: '12px' }}>
-                                    {/* {formattedDate} */}
-                                    {/* {data.modidate && ( */}
-                                        <>
-                                            <span style={{ marginLeft: '5px', color: 'grey' }}>(수정됨)</span>
-                                            <span style={{ fontSize: '10px', color: 'grey' }}>
-                                                {/* {moment(data.modidate).fromNow()} */}
-                                            </span>
-                                        </>
-                                    {/* {)}} */}
+                                    <span style={{ marginLeft: '5px', color: 'grey' }}>(수정됨)</span>
+                                    <span style={{ fontSize: '10px', color: 'grey' }}></span>
                                 </span>
                             </p>
                             <p style={{ color: '#525252' }}>{data.rcomment}</p>
@@ -213,8 +204,9 @@ const SubscribeLRead = (props) => {
                     <div>
                         {isCurrentUserCommentOwner && (
                             <div>
-                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => openEditModal(i)}>수정</button>
-                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => deleteComment(i)}>삭제</button>
+                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => modifyComment(`${data.rno}`)}>수정</button>
+                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => openEditModal(`${data.rno}`)}>modal</button>
+                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => deleteComment(`${data.rno}`)}>삭제</button>
                             </div>
                         )}
                     </div>
@@ -224,14 +216,15 @@ const SubscribeLRead = (props) => {
         return result
     }
 
-    const deleteComment = (index) => {
+
+    const deleteComment = (rno) => {
         sweetalertDelete2('삭제하시겠습니까?', () => {
-            axios.delete(`http://localhost:8080/sreplies/delete/${responseReplyList.data[index].rno}/${sno}`, {
-                rNo: responseReplyList.data[index].rno,
-                sno: sno
-            })
-                .then(response => {
-                }).catch(error => { alert('작업중 오류가 발생하였습니다.'); return false; });
+            axios.delete(`http://localhost:8080/sreplies/delete/${rno}`, {
+            }).then(response => {
+                if (response.data == "SUCCESS") {
+                    callReplyListApi(sno);
+                }
+            }).catch(error => { alert('작업중 오류가 발생하였습니다.'); return false; });
         })
     };
 
@@ -254,10 +247,16 @@ const SubscribeLRead = (props) => {
         })
     }
 
-    const openEditModal = (index) => {
-        setIsEditModalOpen(true);
-        setSelectRno(responseReplyList.data[index].rno);
-        setEditedContent(responseReplyList.data[index].replyText)
+    const modifyComment = (rno) => {
+        console.log("=====================> " + rno);
+    };
+
+    const openEditModal = (rno) => {
+        this.setState({
+            selectRno: rno,
+            isEditModalOpen: true,
+            editedContent: rno,
+        });
     };
 
     const closeEditModal = () => {
@@ -335,7 +334,6 @@ const SubscribeLRead = (props) => {
                                     </tr>
                                 </table>
                                 <table class="table_ty1">
-
                                     <tr>
                                         <th>
                                             <label for="Content">내용</label>
@@ -355,11 +353,12 @@ const SubscribeLRead = (props) => {
                                             </ul>
                                         </td>
                                     </tr>
-                                    <Modal
-                                        // isOpen={modalIsOpen}
+                                    
+                                    {/* <Modal
+                                        // ariaHideApp={false}
+                                        isOpen={modalIsOpen}
                                         onRequestClose={closeImageModal}
                                         appElement={document.getElementById('root') || undefined} //appElement={el}적용
-                                        // ariaHideApp={false}
                                         contentLabel="썸네일 이미지"
                                         style={{
                                             overlay: {
@@ -380,11 +379,11 @@ const SubscribeLRead = (props) => {
                                                 justifyContent: 'center',
                                                 backgroundColor: 'rgba(0, 0, 0, 0.5)'
                                             }
-                                        }}>
+                                        }}> */}
                                         {/* {selectedImage && (
                                             <img src={`/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
                                         )} */}
-                                    </Modal>
+                                    {/* </Modal> */}
                                 </table>
                                 <div id="modifyButton" class="btn_confirm mt20" style={{ "margin-bottom": "44px", textAlign: "center" }}>
                                     <Link to={`/SubscribeLUpdate/${sno}`} className="bt_ty bt_ty2 submit_ty1 saveclass">수정</Link>
@@ -424,9 +423,10 @@ const SubscribeLRead = (props) => {
                 </div>
 
                 <Modal
+                    ariaHideApp={false}
                     isOpen={isEditModalOpen}
                     onRequestClose={closeEditModal}
-                    appElement={document.getElementById('replyDiv')}
+                    // appElement={document.getElementById('root') || undefined} //appElement={el}적용
                     style={{
                         overlay: {
                             backgroundColor: 'rgba(0, 0, 0, 0.5)'

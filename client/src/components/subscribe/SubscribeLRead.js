@@ -194,18 +194,19 @@ const SubscribeLRead = (props) => {
                             <p style={{ fontSize: '19px' }}>
                                 {data.replyer}
                                 <span style={{ fontSize: '12px' }}>
-                                    <span style={{ marginLeft: '5px', color: 'grey' }}>(수정됨)</span>
+                                    <span style={{ marginLeft: '5px', color: 'grey' }}></span>
                                     <span style={{ fontSize: '10px', color: 'grey' }}></span>
                                 </span>
                             </p>
-                            <p style={{ color: '#525252' }}>{data.rcomment}</p>
+                            <p style={{ color: '#525252' }}>
+                                <input type="text" value={data.rcomment} style={{ flex: '1', marginRight: '8px', height: '50px' }} />
+                            </p>
                         </div>
                     </div>
                     <div>
                         {isCurrentUserCommentOwner && (
                             <div>
-                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => modifyComment(`${data.rno}`)}>수정</button>
-                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => openEditModal(`${data.rno}`)}>modal</button>
+                                <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => modifyComment(`${data.rno}`, `${data.rcomment}`)}>수정</button>
                                 <button className="catbtn bt_ty2 submit_ty1 saveclass" onClick={() => deleteComment(`${data.rno}`)}>삭제</button>
                             </div>
                         )}
@@ -215,7 +216,6 @@ const SubscribeLRead = (props) => {
         }
         return result
     }
-
 
     const deleteComment = (rno) => {
         sweetalertDelete2('삭제하시겠습니까?', () => {
@@ -247,8 +247,12 @@ const SubscribeLRead = (props) => {
         })
     }
 
-    const modifyComment = (rno) => {
-        console.log("=====================> " + rno);
+    const modifyComment = (rno, rco) => {
+        setIsEditModalOpen(true);
+        setSelectRno(rno);
+        setEditedContent(rco);
+        // $('#replyTextVal').attr("readonly", true);
+        // $('#input_37').attr("readonly", false);
     };
 
     const openEditModal = (rno) => {
@@ -266,16 +270,14 @@ const SubscribeLRead = (props) => {
 
     const handleEditSubmit = () => {
         axios.put(`http://localhost:8080/sreplies/update/${selectRno}`, {
-            rNo: selectRno,
-            replyText: editedContent,
-        })
-        .then(response => {
+            rno: selectRno,
+            rcomment: editedContent,
+        }).then(response => {
             if (response.data == "SUCCESS") {
                 setIsEditModalOpen(false);
                 callReplyListApi(sno);
             }
-        })
-        .catch(error => { alert('댓글수정오류'); return false; });
+        }).catch(error => { alert('댓글수정오류'); return false; });
     };
 
     const formattedRegidate = new Date(regidate).toLocaleDateString('ko-KR', {
@@ -426,7 +428,6 @@ const SubscribeLRead = (props) => {
                     ariaHideApp={false}
                     isOpen={isEditModalOpen}
                     onRequestClose={closeEditModal}
-                    // appElement={document.getElementById('root') || undefined} //appElement={el}적용
                     style={{
                         overlay: {
                             backgroundColor: 'rgba(0, 0, 0, 0.5)'

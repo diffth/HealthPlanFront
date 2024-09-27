@@ -39,13 +39,21 @@ const SubscribeLInsert = () => {
         if (fnValidate()) {
             let jsonstr = $("form[name='frm']").serialize();
 
-            axios.post('http://localhost:8080/subscribe/subscribeLessionInsert', jsonstr)
+            jsonstr = decodeURIComponent(jsonstr);
+            let Json_form = JSON.stringify(jsonstr).replace(/\"/gi, '')
+            Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
+            
+            let Json_data = {
+                ...JSON.parse(Json_form),
+                imageDTOList: imageDTOList,
+            };
+
+            axios.post('http://localhost:8080/subscribe/subscribeLessionInsert', Json_data)
                 .then(response => {
                     try {
                         if (response.data == "success") {
                             sweetalert('등록되었습니다.', '', 'success', '확인')
                             setTimeout(function () {
-                                // history.push('/SubscribeLList');
                                 navigate('/SubscribeLList');
                             }, 1000
                             );
@@ -87,16 +95,16 @@ const SubscribeLInsert = () => {
         formData.append('uploadFiles', selectedFile);
 
         try {
-            const res = await axios.post("/uploadAjax", formData);
+            const res = await axios.post("http://localhost:8080/subscribe/uploadAjax", formData);
             const { fileName, uuid, folderPath, thumbnailURL } = res.data[0];
 
             setImageDTOList((prevImageDTOList) => [
                 ...prevImageDTOList,
-                { imgName: fileName, path: folderPath, uuid: uuid },
+                { imgName: fileName, path: folderPath, uuid: '111' },
             ]);
 
             const str = `<li data-name='${fileName}' data-path='${folderPath}' data-uuid='${uuid}'>
-                            <img src='/display?fileName=${thumbnailURL}'>
+                            <img src='http://localhost:8080/subscribe/display?fileName=${thumbnailURL}'>
                           </li>`;
             $('#upload_img').append(str);
         } catch (error) {
@@ -126,7 +134,6 @@ const SubscribeLInsert = () => {
                                             <label for="writer">작성자</label>
                                         </th>
                                         <td>
-                                            {/* <input type="text" name="writer" id="writerVal" readOnly="readonly" value={memNickName} /> */}
                                             <input type="text" name="uuid" id="writerVal" value="111" />
                                             <input type="text" name="mno" id="" value="1" />
                                         </td>
@@ -153,8 +160,7 @@ const SubscribeLInsert = () => {
                                         </th>
                                         <td className="fileBox fileBox1">
                                             <label htmlFor='imageSelect' className="btn_file">파일선택</label>
-                                            <input type="text" id="imagefile" className="fileName fileName1"
-                                                readOnly="readonly" placeholder="선택된 파일 없음" />
+                                            <input type="text" id="imagefile" className="fileName fileName1" readOnly="readonly" placeholder="선택된 파일 없음" />
                                             <input type="file" id="imageSelect" className="uploadBtn uploadBtn1"
                                                 onChange={e => handleFileInput('file', e)} multiple />
                                             <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }}

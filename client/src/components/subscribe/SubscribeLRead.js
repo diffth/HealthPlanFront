@@ -199,8 +199,8 @@ const SubscribeLRead = (props) => {
                                     <span style={{ fontSize: '10px', color: 'grey' }}></span>
                                 </span>
                             </p>
-                            <p style={{ color: '#525252' }}>
-                                <input type="text" value={data.rcomment} style={{ flex: '1', marginRight: '8px', height: '50px' }} />
+                            <p style={{ color: '#525252' }}>{data.rcomment}
+                                {/* <input type="text" value={data.rcomment} style={{ flex: '1', marginRight: '8px', height: '50px' }} /> */}
                             </p>
                         </div>
                     </div>

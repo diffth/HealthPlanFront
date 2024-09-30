@@ -45,7 +45,7 @@ const SubscribeLRead = (props) => {
                 setWriter(response.data.uuid);
                 setViewCnt(response.data.counts);
                 setRegidate(response.data.wdate);
-                //setImageDTOList(response.data.imageDTOList);
+                setImageDTOList(response.data.imageDTOList);
             }
             catch (error) {
                 alert('게시글데이터 받기 오류')
@@ -57,23 +57,24 @@ const SubscribeLRead = (props) => {
     }
 
     const handleThumbnailClick = (thumbnailURL) => {
-        // setModalIsOpen(true);
+        setModalIsOpen(true);
         setSelectedImage(thumbnailURL);
     };
 
     const closeImageModal = () => {
-        // setModalIsOpen(false);
+        setModalIsOpen(false);
         setSelectedImage('');
     };
 
     const renderImages = () => {
         const imageList = imageDTOList;
-        return imageList.map((image, index) => (
+
+        return imageList.map((images, index) => (
             <li className="hidden_type" key={index}>
                 <img
-                    src={`/display?fileName=${image.thumbnailURL}`}
+                    src={`http://localhost:8080/subscribe/display?fileName=${images.imgName}`}
                     alt={`썸네일 ${index}`}
-                    onClick={() => handleThumbnailClick(image.imageURL)}
+                    onClick={() => handleThumbnailClick(images.imageURL)}
                 />
             </li>
         ));
@@ -356,11 +357,10 @@ const SubscribeLRead = (props) => {
                                         </td>
                                     </tr>
                                     
-                                    {/* <Modal
-                                        // ariaHideApp={false}
+                                    <Modal
+                                        ariaHideApp={false}
                                         isOpen={modalIsOpen}
                                         onRequestClose={closeImageModal}
-                                        appElement={document.getElementById('root') || undefined} //appElement={el}적용
                                         contentLabel="썸네일 이미지"
                                         style={{
                                             overlay: {
@@ -381,11 +381,11 @@ const SubscribeLRead = (props) => {
                                                 justifyContent: 'center',
                                                 backgroundColor: 'rgba(0, 0, 0, 0.5)'
                                             }
-                                        }}> */}
-                                        {/* {selectedImage && (
-                                            <img src={`/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
-                                        )} */}
-                                    {/* </Modal> */}
+                                        }}>
+                                        {selectedImage && (
+                                            <img src={`http://localhost:8080/subscribe/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
+                                        )}
+                                    </Modal>
                                 </table>
                                 <div id="modifyButton" class="btn_confirm mt20" style={{ "margin-bottom": "44px", textAlign: "center" }}>
                                     <Link to={`/SubscribeLUpdate/${sno}`} className="bt_ty bt_ty2 submit_ty1 saveclass">수정</Link>

@@ -96,14 +96,14 @@ const SubscribeLInsert = () => {
 
         try {
             const res = await axios.post("http://localhost:8080/subscribe/uploadAjax", formData);
-            const { fileName, uuid, folderPath, thumbnailURL } = res.data[0];
+            const { fileName, uuid, folderPath, imageURL, thumbnailURL, imgType } = res.data[0];
 
             setImageDTOList((prevImageDTOList) => [
                 ...prevImageDTOList,
-                { imgName: fileName, path: folderPath, uuid: '111' },
+                { imgName: fileName, imageURL: imageURL, thumbnailURL: thumbnailURL, path: folderPath, uuid: '111', imgType: "A" },
             ]);
 
-            const str = `<li data-name='${fileName}' data-path='${folderPath}' data-uuid='${uuid}'>
+            const str = `<li data-name='${fileName}' data-path='${folderPath}' data-uuid='${uuid} data-imageURL='${imageURL}'>
                             <img src='http://localhost:8080/subscribe/display?fileName=${thumbnailURL}'>
                           </li>`;
             $('#upload_img').append(str);

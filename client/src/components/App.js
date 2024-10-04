@@ -20,6 +20,10 @@ import Footer from './Footer/Footer';
 
 // import NewsList from './Api/NewsList';
 // import SList from './Api/SList';
+import SubscribeList   from './subscribe/SubscribeList';
+import SubscribeInsert from './subscribe/SubscribeInsert';
+import SubscribeRead   from './subscribe/SubscribeRead';
+import SubscribeUpdate from './subscribe/SubscribeUpdate';
 import SubscribeLList   from './subscribe/SubscribeLList';
 import SubscribeLInsert from './subscribe/SubscribeLInsert';
 import SubscribeLRead   from './subscribe/SubscribeLRead';
@@ -30,6 +34,10 @@ const App = () => {
     <div className="App">
       <Header />
       <Routes>
+        <Route path='/SubscribeList' element={<SubscribeList/>} />
+        <Route path='/SubscribeInsert' element={<SubscribeInsert/>} />
+        <Route path='/SubscribeRead/:sno' element={<SubscribeRead/>} />
+        <Route path='/SubscribeUpdate/:sno' element={<SubscribeUpdate/>} />
         <Route path='/SubscribeLList' element={<SubscribeLList/>} />
         <Route path='/SubscribeLInsert' element={<SubscribeLInsert/>} />
         <Route path='/SubscribeLRead/:sno' element={<SubscribeLRead/>} />

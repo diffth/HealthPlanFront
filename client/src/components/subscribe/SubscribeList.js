@@ -22,7 +22,7 @@ const SubscribeLList = () => {
     }, []);
 
     const callSboardListApi = (page) => {
-        axios.get(`http://localhost:8080/subscribe/subscribeLessionList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
+        axios.get(`http://localhost:8080/subscribe/subscribeList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
             // sno: sno
         ).then(response => {
             try {

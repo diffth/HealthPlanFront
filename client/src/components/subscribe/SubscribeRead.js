@@ -82,7 +82,7 @@ const SubscribeLRead = (props) => {
 
     const deleteArticle = (e) => {
         sweetalertDelete1('삭제하시겠습니까?', () => {
-            axios.delete(`http://localhost:8080/subscribe/subscribeLessionDelete/${sno}`, {
+            axios.delete(`http://localhost:8080/subscribe/subscribeDelete/${sno}`, {
                 // sno: sno
             }).then(response => {
                 
@@ -293,14 +293,14 @@ const SubscribeLRead = (props) => {
         <section class="sub_wrap">
             <article class="s_cnt mp_pro_li ct1">
                 <div class="li_top">
-                    <h2 class="s_tit1">강의수강</h2>
+                    <h2 class="s_tit1">전문가구독</h2>
                 </div>
                 <div class="bo_w re1_wrap re1_wrap_writer">
                     <form name="frm" id="frm" action="" onsubmit="" method="post" >
                         <article class="res_w">
                             <div class="tb_outline">
                                 <div style={{ textAlign: "Right" }}>
-                                    <Link to={`/SubscribeLList`} className="bt_ty bt_ty2 submit_ty1 saveclass">목록</Link>
+                                    <Link to={`/SubscribeList`} className="bt_ty bt_ty2 submit_ty1 saveclass">목록</Link>
                                 </div>
                                 <table class="table_ty1">
                                     <tr>
@@ -388,7 +388,7 @@ const SubscribeLRead = (props) => {
                                     </Modal>
                                 </table>
                                 <div id="modifyButton" class="btn_confirm mt20" style={{ "margin-bottom": "44px", textAlign: "center" }}>
-                                    <Link to={`/SubscribeLUpdate/${sno}`} className="bt_ty bt_ty2 submit_ty1 saveclass">수정</Link>
+                                    <Link to={`/SubscribeUpdate/${sno}`} className="bt_ty bt_ty2 submit_ty1 saveclass">수정</Link>
                                     <a href='javascript:' className="bt_ty bt_ty2 submit_ty1 saveclass" onClick={(e) => deleteArticle(e)}>삭제</a>
                                 </div>
                             </div>

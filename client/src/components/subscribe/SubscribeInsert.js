@@ -48,13 +48,13 @@ const SubscribeLInsert = () => {
                 imageDTOList: imageDTOList,
             };
 
-            axios.post('http://localhost:8080/subscribe/subscribeLessionInsert', Json_data)
+            axios.post('http://localhost:8080/subscribe/subscribeInsert', Json_data)
                 .then(response => {
                     try {
                         if (response.data == "success") {
                             sweetalert('등록되었습니다.', '', 'success', '확인')
                             setTimeout(function () {
-                                navigate('/SubscribeLList');
+                                navigate('/SubscribeList');
                             }, 1000
                             );
                         }
@@ -122,7 +122,7 @@ const SubscribeLInsert = () => {
         <section className="sub_wrap">
             <article className="s_cnt mp_pro_li ct1">
                 <div className="li_top">
-                    <h2 className="s_tit1">강의등록</h2>
+                    <h2 className="s_tit1">전문가구독 등록</h2>
                 </div>
                 <div className="bo_w re1_wrap re1_wrap_writer">
                     <form name="frm" id="frm" action="" method="post" >

@@ -86,7 +86,7 @@ const SubscribeLUpdate = (props) => {
                 imageDTOList: imageDTOList,
             };
 
-            axios.put(`http://localhost:8080/subscribe/subscribeLessionUpdate`, Json_data)
+            axios.put(`http://localhost:8080/subscribe/subscribeUpdate`, Json_data)
                 .then(response => {
                     try {
                         if (response.data == "success") {

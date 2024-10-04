@@ -57,7 +57,7 @@ const SubscribeLList = () => {
             result.push(
                 <tr className="hidden_type">
                     <td> {num} </td>
-                    <td><Link to={`/SubscribeLRead/${data.sno}`}>{data.title}{data.replycnt > 0 && `[${data.replycnt}]`}</Link></td>
+                    <td><Link to={`/SubscribeRead/${data.sno}`}>{data.title}{data.replycnt > 0 && `[${data.replycnt}]`}</Link></td>
                     <td> {data.uuid} </td>
                     <td> {data.counts} </td>
                     <td> {reg_date} </td>
@@ -120,7 +120,7 @@ const SubscribeLList = () => {
         <section className="sub_wrap" >
             <article className="s_cnt mp_pro_li ct1 mp_pro_li_admin">
                 <div className="li_top">
-                    <h2 className="s_tit1">강의수강</h2>
+                    <h2 className="s_tit1">전문가구독</h2>
                 </div>
 
                 <div className="searchingForm" >
@@ -156,7 +156,7 @@ const SubscribeLList = () => {
                 </div>
 
                 <div className="li_top_sch af">
-                    <Link to={'/SubscribeLInsert'} className="sch_bt2 wi_au">글쓰기</Link>
+                    <Link to={'/SubscribeInsert'} className="sch_bt2 wi_au">글쓰기</Link>
                 </div>
             </article>
         </section>

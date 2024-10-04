@@ -92,8 +92,7 @@ const SubscribeLUpdate = (props) => {
                         if (response.data == "success") {
                             sweetalert('수정되었습니다.', '', 'success', '확인')
                             setTimeout(() => {
-                                // history.push(`/NboardRead/${sno}`);
-                                navigate(`/SubscribeLRead/${sno}`);
+                                navigate(`/SubscribeRead/${sno}`);
                             }, 1000
                             );
                         }
@@ -160,7 +159,7 @@ const SubscribeLUpdate = (props) => {
         <section class="sub_wrap">
             <article class="s_cnt mp_pro_li ct1">
                 <div class="li_top">
-                    <h2 class="s_tit1">강의수정</h2>
+                    <h2 class="s_tit1">전문가구독 수정</h2>
                 </div>
                 <div class="bo_w re1_wrap re1_wrap_writer">
                     <form name="frm" id="frm" action="" onsubmit="" method="put" >
@@ -214,7 +213,7 @@ const SubscribeLUpdate = (props) => {
                                 <div class="btn_confirm mt20" style={{ "margin-bottom": "44px", textAlign: "center" }}>
                                     <a href="javascript:" className="bt_ty bt_ty2 submit_ty1 saveclass"
                                         onClick={(e) => submitClick('file', e)}>저장</a>
-                                    <Link to={`/SubscribeLRead/${sno}`} className="bt_ty bt_ty2 submit_ty1 saveclass">취소</Link>
+                                    <Link to={`/SubscribeRead/${sno}`} className="bt_ty bt_ty2 submit_ty1 saveclass">취소</Link>
                                 </div>
                             </div>
                         </article>

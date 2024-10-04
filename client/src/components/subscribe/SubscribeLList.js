@@ -57,7 +57,7 @@ const SubscribeLList = () => {
             result.push(
                 <tr className="hidden_type">
                     <td> {num} </td>
-                    <td><Link to={`/SubscribeLRead/${data.sno}`}>{data.title}{data.replycnt > 0 && `[${data.replycnt}]`}</Link></td>
+                    <td><Link to={`/SubscribeLRead/${data.sno}`}>{data.title}{data.replycnt > 0 && ` [${data.replycnt}]`}</Link></td>
                     <td> {data.uuid} </td>
                     <td> {data.counts} </td>
                     <td> {reg_date} </td>

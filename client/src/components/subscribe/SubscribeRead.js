@@ -108,7 +108,7 @@ const SubscribeLRead = (props) => {
                     '',
                     'success'
                 ).then(() => {
-                    window.location.href = '/SubscribeLList';
+                    window.location.href = '/SubscribeList';
                 });
             } else {
                 return false;

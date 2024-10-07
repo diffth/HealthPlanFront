@@ -4,6 +4,8 @@ import $ from 'jquery';
 const Footer = () => {
 
   useEffect(() => {
+
+
     if (window.location.pathname.endsWith('/')) {
       $('footer').hide();
 
@@ -17,6 +19,7 @@ const Footer = () => {
     }
   }, []);
 
+
   return (
     <footer className="footer">
       <ul>
@@ -28,8 +31,9 @@ const Footer = () => {
         <span>Tel : 02-1234-5678</span>
       </div>
       <p>COPYRIGHT &copy; React 200, ALL RIGHTS RESERVED.</p>
-  </footer>
+    </footer>
   );
+
 }
 
 export default Footer;

@@ -10,13 +10,18 @@ import '../css/new.css';
 import Header from './Header/Header';
 
 // 메인 컴포넌트 import
-// import MainForm from './Main/MainForm';
+import MainForm from './Main/MainForm';
 
 // 푸터 컴포넌트 import
 import Footer from './Footer/Footer';
 
 // 로그인 컴포넌트 import
-// import LoginForm from './LoginForm';
+import LoginForm from './LoginForm';
+
+// 회원 관리 컴포넌트 import
+import Register from './Member/Register';
+import Modify from './Member/Modify';
+import MyPage from './Member/MyPage';
 
 // import NewsList from './Api/NewsList';
 // import SList from './Api/SList';
@@ -34,6 +39,12 @@ const App = () => {
     <div className="App">
       <Header />
       <Routes>
+        <Route path='/' element={<LoginForm />} />
+        <Route path='/login' element={<LoginForm />} />
+        <Route path='/MainForm' element={<MainForm />} />
+        <Route path='/Register' element={<Register />} />
+        <Route path='/MyPage' element={<MyPage />} />
+        <Route path='/Modify' element={<Modify />} />
         <Route path='/SubscribeList' element={<SubscribeList/>} />
         <Route path='/SubscribeInsert' element={<SubscribeInsert/>} />
         <Route path='/SubscribeRead/:sno' element={<SubscribeRead/>} />

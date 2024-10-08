@@ -41,15 +41,15 @@ const SubscribeLList = () => {
     const subscribeListAppend = (nBoard) => {
         let result = [];
         let nBoardList = nBoard.list;
-        
+
         for (let i = 0; i < nBoardList.length; i++) {
             let data = nBoardList[i];
-            
+
             var date = data.wdate;
-            var year = date.substr(0,4);
-            var month = date.substr(5,2);
-            var day = date.substr(8,2);
-            var reg_date = year +'.'+month+'.'+day;
+            var year = date.substr(0, 4);
+            var month = date.substr(5, 2);
+            var day = date.substr(8, 2);
+            var reg_date = year + '.' + month + '.' + day;
 
             //list num
             var num = (nBoard.pageMaker.totalCount - (nBoard.pageMaker.cri.page - 1) * nBoard.pageMaker.cri.perPageNum - i);
@@ -88,7 +88,7 @@ const SubscribeLList = () => {
 
     const renderSearchPagination = () => {
         const pageNumbers = [];
-        
+
         for (let i = startPage; i <= endPage; i++) {
             const isCurrentPage = i === currentPage;
             pageNumbers.push(

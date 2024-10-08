@@ -77,7 +77,7 @@ const SubscribeLUpdate = (props) => {
 
         if (fnValidate()) {
             let jsonstr = $("form[name='frm']").serialize();
-            
+
             jsonstr = decodeURIComponent(jsonstr);
             let Json_form = JSON.stringify(jsonstr).replace(/\"/gi, '')
             Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";

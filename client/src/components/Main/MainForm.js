@@ -79,7 +79,7 @@ const MainForm = () => {
             <div className={`bottom-image-container ${showBottomImage ? 'visible' : ''}`}>
                 <img src={require(`../../img/MainImage/002.png`)} alt="Bottom Image2" className="bottom-image2" />
                 <div className="bottom-text2">
-                   <h2>"개인 맞춤형 피드백 시스템 제공"</h2> 
+                    <h2>"개인 맞춤형 피드백 시스템 제공"</h2>
                     <br />
                     {/*사용자별 맞춤 운동 계획을 제공하며, 개별 체력과 운동 습관에 맞춘 피드백을 통해 더 효과적인 운동을 할 수 있도록 돕*/}
                     <br />
@@ -105,19 +105,19 @@ const MainForm = () => {
                     그룹 챌린지나 운동 그룹을 형성하여 함께 목표를 달성하는 등 협력적인 운동 환경을 제공합니다. */}
                     <br />
                     <br />
-                    사용자들 간의 상호작용을 촉진하기 위해 
+                    사용자들 간의 상호작용을 촉진하기 위해
                     <br />
                     커뮤니티를 위한 공간이 있습니다.
                     <br />
                     <br />
                     이용자는 식단과 운동에 관련된 내용을 공유하거나,
                     <br />
-                    다른 이용자들과 관련 정보를 교류하며 
+                    다른 이용자들과 관련 정보를 교류하며
                     <br />
                     동기부여를 받을 수 있습니다.
                     <br />
                     <br />
-                   챌린지를 통해 달성한 목표를 공유하는 등
+                    챌린지를 통해 달성한 목표를 공유하는 등
                     <br />
                     협력적인 운동 환경을 제공합니다.
                 </div>
@@ -134,14 +134,14 @@ const MainForm = () => {
                     <br />
                     다양한 디바이스(스마트폰, 태블릿, PC 등)를 통해
                     <br />
-                    언제 어디서나 온라인, 오프라인 모든 환경에서 
+                    언제 어디서나 온라인, 오프라인 모든 환경에서
                     <br />
-                    모두 활용 가능한 운동 프로그램을 통해 
+                    모두 활용 가능한 운동 프로그램을 통해
                     <br />
                     유연한 운동 경험을 제공합니다.
                     <br />
                     <br />
-                    이를 통해 시간과 장소에 구애받지 않고 
+                    이를 통해 시간과 장소에 구애받지 않고
                     <br />
                     운동을 지속할 수 있으며,
                     <br />
@@ -151,7 +151,7 @@ const MainForm = () => {
                 </div>
             </div>
             {/* 하단 이미지5 */}
-{/*             <div className={`bottom-image-container ${showBottomImage ? 'visible' : ''}`}>
+            {/*             <div className={`bottom-image-container ${showBottomImage ? 'visible' : ''}`}>
                 <img src={require(`../../img/MainImage/MainImage8.png`)} alt="" className="bottom-image" />
                 <div className="bottom-text">
                     "에너지 효율성"
@@ -173,7 +173,7 @@ const MainForm = () => {
                 </div>
             </div> */}
             {/* 하단 이미지6 */}
-{/*             <div className={`bottom-image-container ${showBottomImage ? 'visible' : ''}`}>
+            {/*             <div className={`bottom-image-container ${showBottomImage ? 'visible' : ''}`}>
                 <img src={require(`../../img/MainImage/MainImage9.png`)} alt="" className="bottom-image2" />
                 <div className="bottom-text2">
                     "지속가능한 미래"
@@ -193,6 +193,5 @@ const MainForm = () => {
         </div>
     );
 }
-
 
 export default MainForm;

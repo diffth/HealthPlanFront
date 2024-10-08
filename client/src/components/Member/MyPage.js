@@ -16,8 +16,6 @@ const MyPage = () => {
     const [pcount, setPcount] = useState('');
     // const [appendCarList, setAppendCarList] = useState([]);
 
-
-
     // 날짜 형식을 변환하는 함수
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -29,8 +27,6 @@ const MyPage = () => {
         // const seconds = String(date.getSeconds()).padStart(2, '0');
         return `${year}-${month}-${day}   ${hours}:${minutes} `; // ${hours}:${minutes}:${seconds}
     };
-
-
 
     const callMemberInfoApi = () => {
 
@@ -68,8 +64,6 @@ const MyPage = () => {
                 }).catch(error => { alert('토큰을 확인하는 중에 오류가 발생했습니다.'); return false; });
             })
     };
-
-
 
     useEffect(() => {
         callMemberInfoApi(); // 컴포넌트 마운트 시 API 호출

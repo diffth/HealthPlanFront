@@ -25,13 +25,13 @@ import MyPage from './Member/MyPage';
 
 // import NewsList from './Api/NewsList';
 // import SList from './Api/SList';
-import SubscribeList   from './subscribe/SubscribeList';
+import SubscribeList from './subscribe/SubscribeList';
 import SubscribeInsert from './subscribe/SubscribeInsert';
-import SubscribeRead   from './subscribe/SubscribeRead';
+import SubscribeRead from './subscribe/SubscribeRead';
 import SubscribeUpdate from './subscribe/SubscribeUpdate';
-import SubscribeLList   from './subscribe/SubscribeLList';
+import SubscribeLList from './subscribe/SubscribeLList';
 import SubscribeLInsert from './subscribe/SubscribeLInsert';
-import SubscribeLRead   from './subscribe/SubscribeLRead';
+import SubscribeLRead from './subscribe/SubscribeLRead';
 import SubscribeLUpdate from './subscribe/SubscribeLUpdate';
 
 const App = () => {
@@ -45,14 +45,14 @@ const App = () => {
         <Route path='/Register' element={<Register />} />
         <Route path='/MyPage' element={<MyPage />} />
         <Route path='/Modify' element={<Modify />} />
-        <Route path='/SubscribeList' element={<SubscribeList/>} />
-        <Route path='/SubscribeInsert' element={<SubscribeInsert/>} />
-        <Route path='/SubscribeRead/:sno' element={<SubscribeRead/>} />
-        <Route path='/SubscribeUpdate/:sno' element={<SubscribeUpdate/>} />
-        <Route path='/SubscribeLList' element={<SubscribeLList/>} />
-        <Route path='/SubscribeLInsert' element={<SubscribeLInsert/>} />
-        <Route path='/SubscribeLRead/:sno' element={<SubscribeLRead/>} />
-        <Route path='/SubscribeLUpdate/:sno' element={<SubscribeLUpdate/>} />
+        <Route path='/SubscribeList' element={<SubscribeList />} />
+        <Route path='/SubscribeInsert' element={<SubscribeInsert />} />
+        <Route path='/SubscribeRead/:sno' element={<SubscribeRead />} />
+        <Route path='/SubscribeUpdate/:sno' element={<SubscribeUpdate />} />
+        <Route path='/SubscribeLList' element={<SubscribeLList />} />
+        <Route path='/SubscribeLInsert' element={<SubscribeLInsert />} />
+        <Route path='/SubscribeLRead/:sno' element={<SubscribeLRead />} />
+        <Route path='/SubscribeLUpdate/:sno' element={<SubscribeLUpdate />} />
       </Routes>
       <Footer />
     </div>

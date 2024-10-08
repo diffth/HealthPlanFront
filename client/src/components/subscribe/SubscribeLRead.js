@@ -85,7 +85,7 @@ const SubscribeLRead = (props) => {
             axios.delete(`http://localhost:8080/subscribe/subscribeLessionDelete/${sno}`, {
                 // sno: sno
             }).then(response => {
-                
+
             }).catch(error => {
                 alert('작업중 오류가 발생하였습니다.'); return false;
             });
@@ -161,11 +161,11 @@ const SubscribeLRead = (props) => {
             confirmButtonText: confirmButtonText
         })
     }
-    
+
     const callReplyListApi = (sno) => {
         axios.get(`http://localhost:8080/sreplies/list/${sno}`)
-        .then(response => {
-            try {
+            .then(response => {
+                try {
                     setResponseReplyList(response);
                     setAppend_ReplyList(ReplyListAppend(response.data));
                 } catch (error) {
@@ -356,7 +356,7 @@ const SubscribeLRead = (props) => {
                                             </ul>
                                         </td>
                                     </tr>
-                                    
+
                                     <Modal
                                         ariaHideApp={false}
                                         isOpen={modalIsOpen}

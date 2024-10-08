@@ -40,8 +40,8 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
                     window.location.href = '/MainForm';
                     sweetalert('로그인 성공', '', 'success', '닫기', 5000);
                     setTimeout(() => {
-                        window.location.href ='/MainForm';
-                    }, 5000 )
+                        window.location.href = '/MainForm';
+                    }, 5000)
                 } else {
                     sweetalert('아이디와 비밀번호를 확인해주세요.', '', 'error', '닫기');
                     console.log(response);  // 응답 데이터 확인
@@ -50,7 +50,6 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
             }).catch(error => {
                 sweetalert('아이디와 비밀번호를 확인해주세요.', '', 'error', '닫기');
             });
-
         }
     }
 

@@ -42,7 +42,7 @@ const SubscribeLInsert = () => {
             jsonstr = decodeURIComponent(jsonstr);
             let Json_form = JSON.stringify(jsonstr).replace(/\"/gi, '')
             Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
-            
+
             let Json_data = {
                 ...JSON.parse(Json_form),
                 imageDTOList: imageDTOList,
@@ -75,7 +75,7 @@ const SubscribeLInsert = () => {
             confirmButtonText: confirmButtonText
         })
     }
-    
+
     // 파일 선택 input의 값이 변경될 때 실행되는 메서드
     const handleFileInput = (type, e) => {
         const selected = e.target.files[0];
@@ -85,10 +85,10 @@ const SubscribeLInsert = () => {
 
     useEffect(() => {
         if (selectedFile) {
-                handlePostImage();
-            }
+            handlePostImage();
+        }
     }, [selectedFile]);
-    
+
 
     const handlePostImage = async () => {
         const formData = new FormData();

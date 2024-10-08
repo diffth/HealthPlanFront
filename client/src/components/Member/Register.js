@@ -14,7 +14,6 @@ const Register = () => {
     const [mtype, setMtype] = useState('');
     const navigate = useNavigate(); // useNavigate로 변경
 
-
     // 입력값 초기화 함수
     const resetForm = () => {
         setUuid('');
@@ -25,7 +24,6 @@ const Register = () => {
         setEmail('');
         setMtype('');
     };
-
 
     // 데이터 검증
     const fnValidate = () => {
@@ -62,7 +60,6 @@ const Register = () => {
         return true;
     }
 
-
     // 아이디 중복체크 및 회원가입 처리
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -98,7 +95,7 @@ const Register = () => {
             .then(response => {
                 if (response && response.data === "success") {
                     sweetalert('회원가입 되었습니다.', '', 'success', '확인')
-                    .then(() => { navigate('/login'); }); 
+                        .then(() => { navigate('/login'); });
                 } else {
                     sweetalert('회원가입 중 오류가 발생했습니다.1', '', 'error', '닫기');
                 }
@@ -109,30 +106,28 @@ const Register = () => {
             });
     };
 
-
-
     // SweetAlert 알림 함수
-// SweetAlert 알림 함수 수정
-const sweetalert = (title, contents, icon, confirmButtonText) => {
-    return Swal.fire({
-        title: title,
-        text: contents,
-        icon: icon,
-        confirmButtonText: confirmButtonText
-    });
-};
-
-/*     const sweetalertRegister = (title, contents, icon, confirmButtonText) => {
-        Swal.fire({
+    // SweetAlert 알림 함수 수정
+    const sweetalert = (title, contents, icon, confirmButtonText) => {
+        return Swal.fire({
             title: title,
             text: contents,
             icon: icon,
             confirmButtonText: confirmButtonText
-        }).then(function () {
-            window.location.href = '/';
         });
     };
- */
+
+    /*     const sweetalertRegister = (title, contents, icon, confirmButtonText) => {
+            Swal.fire({
+                title: title,
+                text: contents,
+                icon: icon,
+                confirmButtonText: confirmButtonText
+            }).then(function () {
+                window.location.href = '/';
+            });
+        };
+     */
     const handleMtypeChange = (e) => {
         setMtype(e.target.value); // 선택된 값을 mtype 상태에 저장
     };

@@ -25,6 +25,7 @@ import MyPage from './Member/MyPage';
 
 // import NewsList from './Api/NewsList';
 // import SList from './Api/SList';
+// import SList from './Api/SList';
 import SubscribeList from './subscribe/SubscribeList';
 import SubscribeInsert from './subscribe/SubscribeInsert';
 import SubscribeRead from './subscribe/SubscribeRead';

@@ -30,29 +30,26 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
             axios.post('http://localhost:8080/member/loginPost', {
                 uuid: uuid, // 서버에 전달될 객체의 키 : 리액트 상태 변수 (사용자가 선언한 값을 담음)
                 upw: upw
-            })
-
-                .then(response => {
-                    if (response.data.token) { // 서버에서 jwt 토큰 반환
-                        console.log(response);  // 응답 데이터 확인
-                        const expires = new Date();
-                        expires.setMinutes(expires.getMinutes() + 60);
-                        cookie.save('token', response.data.token, { path: '/', expires });
-                        cookie.save('name', response.data.name, { path: '/', expires });
-                        window.location.href = '/MainForm';
-                        sweetalert('로그인 성공', '', 'success', '닫기', 5000);
-                        setTimeout(() => {
-                            window.location.href ='/MainForm';
-                        }, 5000 )
-                    } else {
-                        sweetalert('아이디와 비밀번호를 확인해주세요.', '', 'error', '닫기');
-                        console.log(response);  // 응답 데이터 확인
-                        console.log("Response Data:", response.data);  // 응답 데이터 확인
-                    }
-                })
-                .catch(error => {
+            }).then(response => {
+                if (response.data.token) { // 서버에서 jwt 토큰 반환
+                    console.log(response);  // 응답 데이터 확인
+                    const expires = new Date();
+                    expires.setMinutes(expires.getMinutes() + 60);
+                    cookie.save('token', response.data.token, { path: '/', expires });
+                    cookie.save('name', response.data.name, { path: '/', expires });
+                    window.location.href = '/MainForm';
+                    sweetalert('로그인 성공', '', 'success', '닫기', 5000);
+                    setTimeout(() => {
+                        window.location.href ='/MainForm';
+                    }, 5000 )
+                } else {
                     sweetalert('아이디와 비밀번호를 확인해주세요.', '', 'error', '닫기');
-                });
+                    console.log(response);  // 응답 데이터 확인
+                    console.log("Response Data:", response.data);  // 응답 데이터 확인
+                }
+            }).catch(error => {
+                sweetalert('아이디와 비밀번호를 확인해주세요.', '', 'error', '닫기');
+            });
 
         }
     }

@@ -26,17 +26,16 @@ const Header = () => {
 
         // 토큰이 있으면 서버에서 uuid 값을 가져와 설정
         if (token) {
-            axios
-                .post('http://localhost:8080/member/loginCookie', { token })
-                .then(response => {
-                    if (response.data && response.data.uuid) {
-                        setUuid(response.data.uuid); // uuid 설정
-                        setName(response.data.name); // name 설정 가능하면 설정
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching UUID:', error);
-                });
+            axios.post('http://localhost:8080/member/loginCookie',
+            { token })
+            .then(response => {
+                if (response.data && response.data.uuid) {
+                    setUuid(response.data.uuid); // uuid 설정
+                    setName(response.data.name); // name 설정 가능하면 설정
+                }
+            }).catch(error => {
+                console.error('Error fetching UUID:', error);
+            });
         }
     }, [token]); // token이 변경될 때마다 실행
 

@@ -27,7 +27,7 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
         if (uuid === '' || upw === '') {
             sweetalert('아이디와 비밀번호를 입력해 주세요.', '', 'error', '닫기');
         } else {
-            axios.post('http://localhost:8080/member/loginPost', {
+            axios.post('http://localhost:8080/member/login', {
                 uuid: uuid, // 서버에 전달될 객체의 키 : 리액트 상태 변수 (사용자가 선언한 값을 담음)
                 upw: upw
             }).then(response => {
@@ -40,8 +40,13 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
                     window.location.href = '/MainForm';
                     sweetalert('로그인 성공', '', 'success', '닫기', 5000);
                     setTimeout(() => {
+<<<<<<< HEAD
                         window.location.href = '/MainForm';
                     }, 5000)
+=======
+                        window.location.href ='/MainForm';
+                    }, 5000 )
+>>>>>>> main
                 } else {
                     sweetalert('아이디와 비밀번호를 확인해주세요.', '', 'error', '닫기');
                     console.log(response);  // 응답 데이터 확인

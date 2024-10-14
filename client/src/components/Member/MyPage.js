@@ -56,7 +56,7 @@ const MyPage = () => {
             } catch (error) {
                 alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
             }
-        })
+        }).catch(error => { alert('회원데이터 받기 오류2'); return false; });
     };
 
     // mtype을 변환하는 함수
@@ -148,7 +148,6 @@ const MyPage = () => {
                             </div>
                             <div className="btn_confirm">
                                 <Link to={'/Modify'} className="bt_ty bt_ty2 submit_ty1 modifyclass">프로필수정</Link>
-                                {/* <Link to={'/CarRegister'} className="bt_ty bt_ty2 submit_ty1 modifyclass">차량등록</Link> */}
                             </div>
                         </form>
                     </div>

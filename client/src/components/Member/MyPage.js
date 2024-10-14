@@ -16,7 +16,9 @@ const MyPage = () => {
     const [pcount, setPcount] = useState('');
     // const [appendCarList, setAppendCarList] = useState([]);
 
-
+    useEffect(() => {
+        callMemberInfoApi(); // 컴포넌트 마운트 시 API 호출
+    }, []); // 빈 배열을 전달하여 최초 한 번만 실행되도록 설정
 
     // 날짜 형식을 변환하는 함수
     const formatDate = (dateString) => {
@@ -30,51 +32,32 @@ const MyPage = () => {
         return `${year}-${month}-${day}   ${hours}:${minutes} `; // ${hours}:${minutes}:${seconds}
     };
 
-
-
     const callMemberInfoApi = () => {
-
         // 1. 쿠키에서 토큰 가져오기 
         const token = cookie.load('token');
 
         // 2. token을 서버로 보내고 uuid를 받아오기
-        axios
-            .post('http://localhost:8080/member/loginCookie', {
-
-                token: token
-
-            }).then(response => {
-
-                const uuid = response.data.uuid;
-
-                // 3. 받아온 데이터를 통해 정보 조회
-                axios.post('http://localhost:8080/member/read', {
-                    uuid: uuid // 받은 uuid를 다시 서버로 전송
-                }).then(response => {
-                    try {
-                        const data = response.data;
-                        setUuid(data.uuid);      // 회원 아이디
-                        setName(data.name);      // 회원 이름
-                        setEmail(data.email);    // 회원 이메일
-                        setMtype(data.mtype);    // 회원 타입
-                        setPhone(data.phone);    // 연락처
-                        setRegdate(formatDate(data.regdate)); // 가입 일자
-                        setMno(data.mno);        // 회원 번호
-                        setSstype(data.sstype);  // 구독 타입
-                        setPcount(data.pcount);  // 잔여 포인트
-                    } catch (error) {
-                        alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
-                    }
-                }).catch(error => { alert('토큰을 확인하는 중에 오류가 발생했습니다.'); return false; });
-            })
+        axios.post('http://localhost:8080/member/loginCookie', {
+            token: token
+        }).then(response => {
+            const uuid = response.data.uuid;
+            
+            try {
+                const data = response.data.vo;
+                setUuid(data.uuid);      // 회원 아이디
+                setName(data.name);      // 회원 이름
+                setEmail(data.email);    // 회원 이메일
+                setMtype(data.mtype);    // 회원 타입
+                setPhone(data.phone);    // 연락처
+                setRegdate(formatDate(data.regdate)); // 가입 일자
+                setMno(data.mno);        // 회원 번호
+                setSstype(data.sstype);  // 구독 타입
+                setPcount(data.pcount);  // 잔여 포인트
+            } catch (error) {
+                alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
+            }
+        })
     };
-
-
-
-    useEffect(() => {
-        callMemberInfoApi(); // 컴포넌트 마운트 시 API 호출
-    }, []); // 빈 배열을 전달하여 최초 한 번만 실행되도록 설정
-
 
     // mtype을 변환하는 함수
     const displayMtype = () => {

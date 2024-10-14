@@ -26,33 +26,24 @@ const Modify = () => {
         const token = cookie.load('token');
 
         // 2. token을 서버로 보내고 uuid를 받아오기
-        axios
-            .post('http://localhost:8080/member/loginCookie', {
+        axios.post('http://localhost:8080/member/loginCookie', {
+            token: token
+        }).then(response => { // then 함수 안에서 다시 호출
+            const uuid = response.data.uuid;
 
-                token: token
-            }).then(response => { // then 함수 안에서 다시 호출
-                const uuid = response.data.uuid;
-
-                // 3. 받아온 데이터를 통해 정보 조회
-                axios.post('http://localhost:8080/member/read', {
-                    uuid: uuid // 받은 uuid를 다시 서버로 전송
-
-                }).then(response => {
-                    try {
-                        const data = response.data;
-                        setUuid(data.uuid);      // 회원 아이디
-                        setName(data.name);      // 회원 이름
-                        setEmail(data.email);    // 회원 이메일
-                        $('#email_val').val(data.email);
-                        setPhone(data.phone);    // 연락처
-                        $('#phone_val').val(data.phone);
-                        setMno(data.mno);        // 회원 번호
-                    }
-                    catch (error) {
-                        alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
-                    }
-                }).catch(error => { alert('토큰을 확인하는 중에 오류가 발생했습니다.'); return false; });
-            })
+            try {
+                const data = response.data.vo;
+                setUuid(data.uuid);      // 회원 아이디
+                setName(data.name);      // 회원 이름
+                setEmail(data.email);    // 회원 이메일
+                $('#email_val').val(data.email);
+                setPhone(data.phone);    // 연락처
+                $('#phone_val').val(data.phone);
+                setMno(data.mno);        // 회원 번호
+            } catch (error) {
+                alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
+            }
+        }).catch(error => { alert('토큰을 확인하는 중에 오류가 발생했습니다.'); return false; });
     };
 
     const fnSignInsert = (type, e) => {
@@ -65,7 +56,7 @@ const Modify = () => {
         axios.post('http://localhost:8080/member/modify', Json_data)
             .then(response => {
                 try {
-                    if (response.data === "SUCCESS") {
+                    if (response.data === "success") {
                         if (type === 'modify') {
                             sweetalertModify('수정되었습니다. \n 다시 로그인해주세요.', '', 'success', '확인');
                         }
@@ -212,9 +203,8 @@ const Modify = () => {
         sweetalertDelete('정말 탈퇴하시겠습니까?', function () {
             axios.post('http://localhost:8080/member/remove', {
                 uuid: uuid
-            })
-                .then(response => {
-                }).catch(error => { alert('작업중 오류가 발생하였습니다.'); return false; });
+            }).then(response => {
+            }).catch(error => { alert('작업중 오류가 발생하였습니다.'); return false; });
         });
     };
 
@@ -245,8 +235,6 @@ const Modify = () => {
         });
     };
 
-
-
     const toggleEditEmail = () => {
         setIsEditingEmail(!isEditingEmail);
     };
@@ -254,9 +242,6 @@ const Modify = () => {
     const toggleEditPhone = () => {
         setIsEditingPhone(!isEditingPhone);
     };
-
-
-
 
     return (
         <div>
@@ -290,7 +275,6 @@ const Modify = () => {
                                             <th>연락처</th>
                                             <td>
                                                 <input id="phone_val"  type="text" name="phone"  />
-       
                                             </td>
                                         </tr>
                                         <tr>

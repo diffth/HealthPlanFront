@@ -142,7 +142,6 @@ const MyPage = () => {
                                             </td>
                                             <button className="bt_ty3 bt_ty2 submit_ty1" >포인트 충전</button>
                                         </tr>
-                                        {/* {appendCarList} */}
                                     </table>
                                 </div>
                             </div>

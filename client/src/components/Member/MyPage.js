@@ -21,6 +21,7 @@ const MyPage = () => {
     }, []); // 빈 배열을 전달하여 최초 한 번만 실행되도록 설정
 
     // 날짜 형식을 변환하는 함수
+    /*
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -31,6 +32,7 @@ const MyPage = () => {
         // const seconds = String(date.getSeconds()).padStart(2, '0');
         return `${year}-${month}-${day}   ${hours}:${minutes} `; // ${hours}:${minutes}:${seconds}
     };
+    */
 
     const callMemberInfoApi = () => {
         // 1. 쿠키에서 토큰 가져오기 
@@ -44,15 +46,15 @@ const MyPage = () => {
             
             try {
                 const data = response.data.vo;
-                setUuid(data.uuid);      // 회원 아이디
-                setName(data.name);      // 회원 이름
-                setEmail(data.email);    // 회원 이메일
-                setMtype(data.mtype);    // 회원 타입
-                setPhone(data.phone);    // 연락처
-                setRegdate(formatDate(data.regdate)); // 가입 일자
-                setMno(data.mno);        // 회원 번호
-                setSstype(data.sstype);  // 구독 타입
-                setPcount(data.pcount);  // 잔여 포인트
+                setUuid(data.UUID);      // 회원 아이디
+                setName(data.NAME);      // 회원 이름
+                setEmail(data.EMAIL);    // 회원 이메일
+                setMtype(data.MTYPE);    // 회원 타입
+                setPhone(data.PHONE);    // 연락처
+                setRegdate(data.REGDATE); // 가입 일자
+                setMno(data.MNO);        // 회원 번호
+                setSstype(data.SSTYPE);  // 구독 타입
+                setPcount(data.PCOUNT);  // 잔여 포인트
             } catch (error) {
                 alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
             }

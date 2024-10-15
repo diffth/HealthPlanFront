@@ -33,13 +33,13 @@ const Modify = () => {
 
             try {
                 const data = response.data.vo;
-                setUuid(data.uuid);      // 회원 아이디
-                setName(data.name);      // 회원 이름
-                setEmail(data.email);    // 회원 이메일
-                $('#email_val').val(data.email);
-                setPhone(data.phone);    // 연락처
-                $('#phone_val').val(data.phone);
-                setMno(data.mno);        // 회원 번호
+                setUuid(data.UUID);      // 회원 아이디
+                setName(data.NAME);      // 회원 이름
+                setEmail(data.EMAIL);    // 회원 이메일
+                $('#email_val').val(data.EMAIL);
+                setPhone(data.PHONE);    // 연락처
+                $('#phone_val').val(data.PHONE);
+                setMno(data.MNO);        // 회원 번호
             } catch (error) {
                 alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
             }

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from "react-router-dom";
 // import cookie from 'react-cookies';
-import axios from "axios";
+// import axios from "axios";
 
 // CSS 파일 import
 import '../css/new.css';

@@ -35,7 +35,6 @@ const ChallengeList = () => {
                     setPrev(response.data.pageMaker.prev);
                     setNext(response.data.pageMaker.next);
 
-
                     // API 응답에서 얻은 Challenge 데이터에 대해 UUID 조회
                     fetchUuids(response.data.clist);
 

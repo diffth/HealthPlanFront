@@ -23,12 +23,17 @@ import Register from './Member/Register';
 import Modify from './Member/Modify';
 import MyPage from './Member/MyPage';
 
+import ChallengeList from './Challenge/ChallengeList';
+import ChallengeInsert from './Challenge/ChallengeInsert';
+import ChallengeRead from './Challenge/ChallengeRead';
+import ChallengeUpdate from './Challenge/ChallengeUpdate';
+
 // import NewsList from './Api/NewsList';
 // import SList from './Api/SList';
-import SubscribeList   from './subscribe/SubscribeList';
-import SubscribeInsert from './subscribe/SubscribeInsert';
-import SubscribeRead   from './subscribe/SubscribeRead';
-import SubscribeUpdate from './subscribe/SubscribeUpdate';
+import SubscribeList    from './subscribe/SubscribeList';
+import SubscribeInsert  from './subscribe/SubscribeInsert';
+import SubscribeRead    from './subscribe/SubscribeRead';
+import SubscribeUpdate  from './subscribe/SubscribeUpdate';
 import SubscribeLList   from './subscribe/SubscribeLList';
 import SubscribeLInsert from './subscribe/SubscribeLInsert';
 import SubscribeLRead   from './subscribe/SubscribeLRead';
@@ -45,6 +50,10 @@ const App = () => {
         <Route path='/Register' element={<Register />} />
         <Route path='/MyPage' element={<MyPage />} />
         <Route path='/Modify' element={<Modify />} />
+        <Route path='/ChallengeList' element={<ChallengeList />} />
+        <Route path='/ChallengeRead/:bno' element={<ChallengeRead/>}/>
+        <Route path='/ChallengeInsert' element={<ChallengeInsert />} />
+        <Route path='/ChallengeUpdate/:bno' element={<ChallengeUpdate />} />
         <Route path='/SubscribeList' element={<SubscribeList/>} />
         <Route path='/SubscribeInsert' element={<SubscribeInsert/>} />
         <Route path='/SubscribeRead/:sno' element={<SubscribeRead/>} />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from "axios";
-import $ from 'jquery';
+// import $ from 'jquery';
 
-export const API_SERVER_HOST = "http://localhost:8080";
-const prefix = `${API_SERVER_HOST}/subscribe`;
+// export const API_SERVER_HOST = "http://localhost:8080";
+// const prefix = `${API_SERVER_HOST}/subscribe`;
 
 const SubscribeLList = () => {
 
@@ -17,7 +17,7 @@ const SubscribeLList = () => {
     const [endPage, setEndPage] = useState('');
     const [prev, setPrev] = useState('');
     const [next, setNext] = useState('');
-    const [page, setPage] = useState('');
+    // const [page, setPage] = useState('');
     const [keyword, setKeyword] = useState('');
     const [searchtype, setSearchtype] = useState('');
 
@@ -49,12 +49,6 @@ const SubscribeLList = () => {
         for (let i = 0; i < nBoardList.length; i++) {
             let data = nBoardList[i];
             
-            var date = data.wdate;
-            var year = date.substr(0,4);
-            var month = date.substr(5,2);
-            var day = date.substr(8,2);
-            var reg_date = year +'.'+month+'.'+day;
-
             //list num
             var num = (nBoard.pageMaker.totalCount - (nBoard.pageMaker.cri.page - 1) * nBoard.pageMaker.cri.perPageNum - i);
 
@@ -64,7 +58,7 @@ const SubscribeLList = () => {
                     <td><Link to={`/SubscribeLRead/${data.sno}`}>{data.title}{data.replycnt > 0 && ` [${data.replycnt}]`}</Link></td>
                     <td> {data.uuid} </td>
                     <td> {data.counts} </td>
-                    <td> {reg_date} </td>
+                    <td> {data.wdate} </td>
                 </tr>
             )
         }

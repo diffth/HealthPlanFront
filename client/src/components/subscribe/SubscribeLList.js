@@ -3,6 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 import $ from 'jquery';
 
+export const API_SERVER_HOST = "http://localhost:8080";
+const prefix = `${API_SERVER_HOST}/subscribe`;
+
 const SubscribeLList = () => {
 
     //const history = useHistory();
@@ -14,6 +17,7 @@ const SubscribeLList = () => {
     const [endPage, setEndPage] = useState('');
     const [prev, setPrev] = useState('');
     const [next, setNext] = useState('');
+    const [page, setPage] = useState('');
     const [keyword, setKeyword] = useState('');
     const [searchtype, setSearchtype] = useState('');
 
@@ -22,9 +26,9 @@ const SubscribeLList = () => {
     }, []);
 
     const callSboardListApi = (page) => {
-        axios.get(`http://localhost:8080/subscribe/subscribeLessionList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
-            // sno: sno
-        ).then(response => {
+        // axios.get(`${prefix}/subscribeLessionList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
+        axios.get(`/subscribe/subscribeLessionList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
+    ).then(response => {
             try {
                 setAppend_SboardList(subscribeListAppend(response.data));
                 setTotalPages(response.data.pageMaker.totalCount);

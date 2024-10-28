@@ -11,6 +11,7 @@ const SubscribeLInsert = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [uuid] = useState(cookie.load('uuid'));
+    const [mno] = useState(cookie.load('mno'));
     const [imageDTOList, setImageDTOList] = useState([]);
 
     const submitClick = async (type, e) => {
@@ -135,6 +136,7 @@ const SubscribeLInsert = () => {
                                         </th>
                                         <td>
                                             <input type="text" name="uuid" id="uuid" readOnly="readonly" value={uuid} />
+                                            <input type="hidden" name="mno" id="mno" value={mno} />
                                         </td>
                                     </tr>
                                     <tr>

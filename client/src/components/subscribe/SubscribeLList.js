@@ -28,7 +28,8 @@ const SubscribeLList = () => {
     const callSboardListApi = (page) => {
         // axios.get(`${prefix}/subscribeLessionList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
         axios.get(`/subscribe/subscribeLessionList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
-    ).then(response => {
+    
+        ).then(response => {
             try {
                 setAppend_SboardList(subscribeListAppend(response.data));
                 setTotalPages(response.data.pageMaker.totalCount);

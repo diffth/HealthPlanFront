@@ -20,20 +20,6 @@ const MyPage = () => {
         callMemberInfoApi(); // 컴포넌트 마운트 시 API 호출
     }, []); // 빈 배열을 전달하여 최초 한 번만 실행되도록 설정
 
-    // 날짜 형식을 변환하는 함수
-    /*
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        // const seconds = String(date.getSeconds()).padStart(2, '0');
-        return `${year}-${month}-${day}   ${hours}:${minutes} `; // ${hours}:${minutes}:${seconds}
-    };
-    */
-
     const callMemberInfoApi = () => {
         // 1. 쿠키에서 토큰 가져오기 
         const token = cookie.load('token');

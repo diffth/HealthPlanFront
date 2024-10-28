@@ -36,7 +36,8 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
                     const expires = new Date();
                     expires.setMinutes(expires.getMinutes() + 60);
                     cookie.save('token', response.data.token, { path: '/', expires });
-                    cookie.save('name', response.data.name, { path: '/', expires });
+                    cookie.save('uuid', response.data.member.uuid, { path: '/', expires });
+                    cookie.save('member', response.data.member, { path: '/', expires });
                     window.location.href = '/MainForm';
                     sweetalert('로그인 성공', '', 'success', '닫기', 5000);
                     setTimeout(() => {

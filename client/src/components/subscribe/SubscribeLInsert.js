@@ -10,7 +10,7 @@ const SubscribeLInsert = () => {
     const navigate = useNavigate();
 
     const [selectedFile, setSelectedFile] = useState(null);
-    const [memNickName] = useState(cookie.load('memNickName'));
+    const [uuid] = useState(cookie.load('uuid'));
     const [imageDTOList, setImageDTOList] = useState([]);
 
     const submitClick = async (type, e) => {
@@ -48,7 +48,7 @@ const SubscribeLInsert = () => {
                 imageDTOList: imageDTOList,
             };
 
-            axios.post('http://localhost:8080/subscribe/subscribeLessionInsert', Json_data)
+            axios.post('/subscribe/subscribeLessionInsert', Json_data)
                 .then(response => {
                     try {
                         if (response.data == "success") {
@@ -95,16 +95,16 @@ const SubscribeLInsert = () => {
         formData.append('uploadFiles', selectedFile);
 
         try {
-            const res = await axios.post("http://localhost:8080/subscribe/uploadAjax", formData);
+            const res = await axios.post("/subscribe/uploadAjax", formData);
             const { fileName, uuid, folderPath, imageURL, thumbnailURL, imgType } = res.data[0];
 
             setImageDTOList((prevImageDTOList) => [
                 ...prevImageDTOList,
-                { imgName: fileName, imageURL: imageURL, thumbnailURL: thumbnailURL, path: folderPath, uuid: '111', imgType: "A" },
+                { imgName: fileName, imageURL: imageURL, thumbnailURL: thumbnailURL, path: folderPath, uuid: uuid, imgType: "A" },
             ]);
 
             const str = `<li data-name='${fileName}' data-path='${folderPath}' data-uuid='${uuid} data-imageURL='${imageURL}'>
-                            <img src='http://localhost:8080/subscribe/display?fileName=${thumbnailURL}'>
+                            <img src='/subscribe/display?fileName=${thumbnailURL}'>
                           </li>`;
             $('#upload_img').append(str);
         } catch (error) {
@@ -134,8 +134,7 @@ const SubscribeLInsert = () => {
                                             <label for="writer">작성자</label>
                                         </th>
                                         <td>
-                                            <input type="text" name="uuid" id="writerVal" value="111" />
-                                            <input type="text" name="mno" id="" value="1" />
+                                            <input type="text" name="uuid" id="uuid" readOnly="readonly" value={uuid} />
                                         </td>
                                     </tr>
                                     <tr>

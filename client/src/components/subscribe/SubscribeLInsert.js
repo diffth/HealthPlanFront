@@ -17,6 +17,7 @@ const SubscribeLInsert = () => {
     const submitClick = async (type, e) => {
 
         const title_checker = $('#titleVal').val();
+        const spoint_checker = $('#spointVal').val();
         const content_checker = $('#contentVal').val();
 
         const fnValidate = (e) => {
@@ -26,6 +27,13 @@ const SubscribeLInsert = () => {
                 return false;
             }
             $('#titleVal').removeClass('border_validate_err');
+
+            if (spoint_checker === '') {
+                $('#spointVal').addClass('border_validate_err');
+                sweetalert('수강료를 입력해주세요.', '', 'error', '닫기')
+                return false;
+            }
+            $('#spointVal').removeClass('border_validate_err');
 
             if (content_checker === '') {
                 $('#contentVal').addClass('border_validate_err');
@@ -132,7 +140,7 @@ const SubscribeLInsert = () => {
                                 <table className="table_ty1">
                                     <tr>
                                         <th>
-                                            <label for="writer">작성자</label>
+                                            <label for="writer">강의등록</label>
                                         </th>
                                         <td>
                                             <input type="text" name="uuid" id="uuid" readOnly="readonly" value={uuid} />
@@ -141,7 +149,7 @@ const SubscribeLInsert = () => {
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label for="title">제목</label>
+                                            <label for="title">강의제목</label>
                                         </th>
                                         <td>
                                             <input type="text" name="title" id="titleVal" />
@@ -149,7 +157,15 @@ const SubscribeLInsert = () => {
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label for="Content">내용</label>
+                                            <label for="spoint">수강료</label>
+                                        </th>
+                                        <td>
+                                            <input type="text" name="spoint" id="spointVal" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="Content">강의내용</label>
                                         </th>
                                         <td>
                                             <textarea style={{ padding: '15px' }} name="contents" id="contentVal" rows="" cols=""></textarea>

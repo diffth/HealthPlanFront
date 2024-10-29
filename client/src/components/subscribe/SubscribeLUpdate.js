@@ -12,12 +12,13 @@ const SubscribeLUpdate = (props) => {
     const [imageDTOList, setImageDTOList] = useState([]);
     const [imageList, setImageList] = useState([]);
     const [title, setTitle] = useState();
+    const [spoint, setSpoint] = useState();
+    const [mno, setMno] = useState();
     const [content, setContent] = useState();
     const [writer, setWriter] = useState();
 
     useEffect(() => {
         callNboardInfoApi();
-        // $('#articleNo').hide();
     }, [])
 
 
@@ -27,6 +28,8 @@ const SubscribeLUpdate = (props) => {
         }).then(response => {
             try {
                 setTitle(response.data.title);
+                setSpoint(response.data.spoint);
+                setMno(response.data.mno);
                 setContent(response.data.contents);
                 setWriter(response.data.uuid);
                 setImageDTOList(response.data.imageDTOList);
@@ -173,12 +176,12 @@ const SubscribeLUpdate = (props) => {
                                         </th>
                                         <td>
                                             <input type="text" name="sno" id="snoVal" value={sno} />
-                                            <input type="text" name="mno" id="snoVal" value="1" />
+                                            <input type="hidden" name="mno" id="mnoVal" value={mno} />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label for="title">제목</label>
+                                            <label for="title">강의제목</label>
                                         </th>
                                         <td>
                                             <input type="text" name="title" id="titleVal" defaultValue={title} />
@@ -186,7 +189,15 @@ const SubscribeLUpdate = (props) => {
                                     </tr>
                                     <tr>
                                         <th>
-                                            <label for="Content">내용</label>
+                                            <label for="spoint">수강료</label>
+                                        </th>
+                                        <td>
+                                            <input type="text" name="spoint" id="spointVal" defaultValue={spoint} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="Content">강의내용</label>
                                         </th>
                                         <td>
                                             <textarea style={{ padding: '15px' }} name="contents" id="contentVal" rows="" cols="" defaultValue={content} ></textarea>

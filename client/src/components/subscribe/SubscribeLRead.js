@@ -5,14 +5,12 @@ import $ from 'jquery';
 import Swal from 'sweetalert2'
 import cookie from 'react-cookies';
 import Modal from 'react-modal';
-// import moment from 'moment';
-// import 'moment/locale/ko';
 
 const SubscribeLRead = (props) => {
     const { sno } = useParams();
 
-    const [memNickName] = useState(cookie.load('memNickName'));
     const [title, setTitle] = useState('');
+    const [spoint, setSpoint] = useState('');
     const [content, setContent] = useState('');
     const [writer, setWriter] = useState('');
     const [viewCnt, setViewCnt] = useState('');
@@ -30,17 +28,14 @@ const SubscribeLRead = (props) => {
     useEffect(() => {
         callNboardInfoApi();
         callReplyListApi(sno);
-        // $("#modifyButton").hide();
-        // $("#replyerDiv").hide();
-        // $("#snoDiv").hide();
     }, [])
 
     const callNboardInfoApi = async () => {
         axios.get(`http://localhost:8080/subscribe/subscribeLessionRead/${sno}`, {
-            //sno: sno,
         }).then(response => {
             try {
                 setTitle(response.data.title);
+                setSpoint(response.data.spoint);
                 setContent(response.data.contents);
                 setWriter(response.data.uuid);
                 setViewCnt(response.data.counts);
@@ -50,9 +45,6 @@ const SubscribeLRead = (props) => {
             catch (error) {
                 alert('게시글데이터 받기 오류')
             }
-            // if (memNickName === writer) {
-            //     $("#modifyButton").show();
-            // }
         }).catch(error => { alert('게시글데이터 받기 오류2'); return false; });
     }
 
@@ -85,7 +77,6 @@ const SubscribeLRead = (props) => {
             axios.delete(`http://localhost:8080/subscribe/subscribeLessionDelete/${sno}`, {
                 // sno: sno
             }).then(response => {
-                
             }).catch(error => {
                 alert('작업중 오류가 발생하였습니다.'); return false;
             });
@@ -252,8 +243,6 @@ const SubscribeLRead = (props) => {
         setIsEditModalOpen(true);
         setSelectRno(rno);
         setEditedContent(rco);
-        // $('#replyTextVal').attr("readonly", true);
-        // $('#input_37').attr("readonly", false);
     };
 
     const openEditModal = (rno) => {
@@ -305,24 +294,32 @@ const SubscribeLRead = (props) => {
                                 <table class="table_ty1">
                                     <tr>
                                         <th>
-                                            <label for="title">제목</label>
+                                            <label for="title">강의제목</label>
                                         </th>
                                         <td>
                                             <input type="text" name="title" id="titleVal" readOnly="readonly" value={title} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="spoint">수강료</label>
+                                        </th>
+                                        <td>
+                                            <input type="text" name="spoint" id="spointVal" readOnly="readonly" value={spoint} />
                                         </td>
                                     </tr>
                                 </table>
                                 <table class="table_ty1">
                                     <tr>
                                         <th>
-                                            <label for="writer">작성자</label>
+                                            <label for="writer">강의등록</label>
                                         </th>
                                         <td>
                                             <input type="text" name="writer" id="writerVal" readOnly="readonly" value={writer} />
                                         </td>
 
                                         <th style={{ textAlign: "center" }}>
-                                            <label for="regDate">작성일</label>
+                                            <label for="regDate">등록일</label>
                                         </th>
                                         <td>
                                             <input type="text" name="regiDate" id="regiDateVal" readOnly="readonly" value={trimmedRegidate} />
@@ -339,7 +336,7 @@ const SubscribeLRead = (props) => {
                                 <table class="table_ty1">
                                     <tr>
                                         <th>
-                                            <label for="Content">내용</label>
+                                            <label for="Content">강의내용</label>
                                         </th>
                                         <td>
                                             <textarea style={{ padding: '15px' }} name="content" id="contentVal" rows="" cols="" readOnly="readonly" value={content}></textarea>

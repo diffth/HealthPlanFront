@@ -58,6 +58,7 @@ const SubscribeLList = () => {
                     <td> {num} </td>
                     <td><Link to={`/SubscribeLRead/${data.sno}`}>{data.title}{data.replycnt > 0 && ` [${data.replycnt}]`}</Link></td>
                     <td> {data.uuid} </td>
+                    <td> {data.spoint} </td>
                     <td> {data.counts} </td>
                     <td> {data.wdate} </td>
                 </tr>
@@ -126,9 +127,9 @@ const SubscribeLList = () => {
                     <form onSubmit={(e) => handleSearchButtonClick(e)}>
                         <select value={searchtype} onChange={handleSearchTypeChange} id="searchtype" className="searchzone">
                             <option value="total">전체</option>
-                            <option value="TITLE">제목</option>
-                            <option value="CONTENTS">내용</option>
-                            <option value="UUID">작성자</option>
+                            <option value="TITLE">강의제목</option>
+                            <option value="CONTENTS">강의내용</option>
+                            <option value="UUID">강의등록</option>
                         </select>
                         <input className='search' type="text" placeholder="검색어를 입력해주세요."
                             value={keyword} onChange={handleSearchValChange} />
@@ -140,10 +141,11 @@ const SubscribeLList = () => {
                     <table className="table_ty1 ad_tlist">
                         <tr>
                             <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
+                            <th>강의제목</th>
+                            <th>강의등록</th>
+                            <th>수강료</th>
                             <th>조회수</th>
-                            <th>작성일</th>
+                            <th>등록일</th>
                         </tr>
                     </table>
                     <table id="appendNboardList" className="table_ty2 ad_tlist">

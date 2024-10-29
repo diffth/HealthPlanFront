@@ -89,6 +89,16 @@ const SubscribeLInsert = () => {
     const handleFileInput = (type, e) => {
         const selected = e.target.files[0];
         $('#imagefile').val(selected ? selected.name : '');
+        selected.imgType = "A";
+        setSelectedFile(selected);
+    }
+    
+    //대표이미지
+    const handleFileInput2 = (type, e) => {
+        const selected = e.target.files[0];
+        $('#imagefile2').val(selected ? selected.name : '');
+        // console.log("=============> handleFileInput2 " + selected.name);
+        selected.imgType = "M";
         setSelectedFile(selected);
     }
 
@@ -100,7 +110,9 @@ const SubscribeLInsert = () => {
     
 
     const handlePostImage = async () => {
+        // console.log("========================> " + selectedFile.imgType);
         const formData = new FormData();
+        const itype = selectedFile.imgType;
         formData.append('uploadFiles', selectedFile);
 
         try {
@@ -109,13 +121,18 @@ const SubscribeLInsert = () => {
 
             setImageDTOList((prevImageDTOList) => [
                 ...prevImageDTOList,
-                { imgName: fileName, imageURL: imageURL, thumbnailURL: thumbnailURL, path: folderPath, uuid: uuid, imgType: "A" },
+                { imgName: fileName, imageURL: imageURL, thumbnailURL: thumbnailURL, path: folderPath, uuid: uuid, imgType: itype },
             ]);
 
-            const str = `<li data-name='${fileName}' data-path='${folderPath}' data-uuid='${uuid} data-imageURL='${imageURL}'>
+            const str = `<li data-name='${fileName}' data-path='${folderPath}' data-uuid='${uuid}' data-imgtype='${itype}' data-imageURL='${imageURL}'>
                             <img src='/subscribe/display?fileName=${thumbnailURL}'>
                           </li>`;
-            $('#upload_img').append(str);
+
+            if(itype == "M"){
+                $('#upload_img2').append(str);
+            }else{
+                $('#upload_img').append(str);
+            }
         } catch (error) {
             alert('작업 중 오류가 발생하였습니다.');
         }
@@ -124,6 +141,12 @@ const SubscribeLInsert = () => {
     const handleRemoveAllThumbnails = () => {
         $('.fileBox1 ul').empty();
         $('#imagefile').val('');
+        setImageDTOList([]);
+    };
+
+    const handleRemoveAllThumbnails2 = () => {
+        $('.fileBox2 ul').empty();
+        $('#imagefile2').val('');
         setImageDTOList([]);
     };
 
@@ -145,6 +168,19 @@ const SubscribeLInsert = () => {
                                         <td>
                                             <input type="text" name="uuid" id="uuid" readOnly="readonly" value={uuid} />
                                             <input type="hidden" name="mno" id="mno" value={mno} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            대표이미지
+                                        </th>
+                                        <td className="fileBox fileBox2">
+                                            <label htmlFor='imageSelect2' className="btn_file">파일선택</label>
+                                            <input type="text" id="imagefile2" className="fileName fileName1" readOnly="readonly" placeholder="선택된 파일 없음" />
+                                            <input type="file" id="imageSelect2" className="uploadBtn uploadBtn1" onChange={e => handleFileInput2('file', e)} multiple />
+                                            <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }} onClick={handleRemoveAllThumbnails2}>X</button>
+                                            <ul id="upload_img2">
+                                            </ul>
                                         </td>
                                     </tr>
                                     <tr>
@@ -178,10 +214,8 @@ const SubscribeLInsert = () => {
                                         <td className="fileBox fileBox1">
                                             <label htmlFor='imageSelect' className="btn_file">파일선택</label>
                                             <input type="text" id="imagefile" className="fileName fileName1" readOnly="readonly" placeholder="선택된 파일 없음" />
-                                            <input type="file" id="imageSelect" className="uploadBtn uploadBtn1"
-                                                onChange={e => handleFileInput('file', e)} multiple />
-                                            <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }}
-                                                onClick={handleRemoveAllThumbnails}>X</button>
+                                            <input type="file" id="imageSelect" className="uploadBtn uploadBtn1" onChange={e => handleFileInput('file', e)} multiple />
+                                            <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }} onClick={handleRemoveAllThumbnails}>X</button>
                                             <ul id="upload_img">
                                             </ul>
                                         </td>

@@ -56,6 +56,12 @@ const SubscribeLList = () => {
             result.push(
                 <tr className="hidden_type">
                     <td> {num} </td>
+                    <td>{
+                        data.titleimg != null
+                        ? <img src={`http://localhost:8080/subscribe/display?fileName=${data.titleimg}`} />
+                        : <img src={require(`../../img/layout/exerciseMan.gif`)} />
+                    }
+                    </td>
                     <td><Link to={`/SubscribeLRead/${data.sno}`}>{data.title}{data.replycnt > 0 && ` [${data.replycnt}]`}</Link></td>
                     <td> {data.uuid} </td>
                     <td> {data.spoint} </td>
@@ -141,6 +147,7 @@ const SubscribeLList = () => {
                     <table className="table_ty1 ad_tlist">
                         <tr>
                             <th>번호</th>
+                            <th>대표</th>
                             <th>강의제목</th>
                             <th>강의등록</th>
                             <th>수강료</th>

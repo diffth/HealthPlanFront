@@ -17,6 +17,7 @@ const SubscribeLRead = (props) => {
     const [viewCnt, setViewCnt] = useState('');
     const [regidate, setRegidate] = useState('');
     const [imageDTOList, setImageDTOList] = useState([]);
+    const [mainImage, setMainImageList] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
     const [append_ReplyList, setAppend_ReplyList] = useState([]);
@@ -43,6 +44,7 @@ const SubscribeLRead = (props) => {
                 setViewCnt(response.data.counts);
                 setRegidate(response.data.wdate);
                 setImageDTOList(response.data.imageDTOList);
+                setMainImageList(response.data.mainImage);
             }
             catch (error) {
                 alert('게시글데이터 받기 오류')
@@ -65,32 +67,34 @@ const SubscribeLRead = (props) => {
         
         return imageList.map((images, index) => (
             <li className="hidden_type" key={index}>
-                {images.imgType == 'A' ?
-                    <img src={`http://localhost:8080/subscribe/display?fileName=${images.imgName}`}
+                {/* {images.imgType == 'A' ? */}
+                    <img src={`/subscribe/display?fileName=${images.imgName}`}
                     alt={`썸네일 ${index}`}
-                    onClick={() => handleThumbnailClick(images.imageURL)} /> : ''
-                }
+                    onClick={() => handleThumbnailClick(images.imageURL)} /> 
+                    {/* : '' */}
+                {/* } */}
             </li>
         ));
     };
         
     const renderMainImages = () => {
-        const imageList = imageDTOList;
+        const mainImgList = mainImage;
 
-        return imageList.map((images, index) => (
-            <li className="hidden_type" key={index}>
-                {images.imgType == 'M' ?
-                    <img src={`http://localhost:8080/subscribe/display?fileName=${images.imgName}`}
+        return mainImgList.map((image, index) => (
+            <li className="hidden_type1" key={index}>
+                {/* {images.imgType == 'M' ? */}
+                    <img src={`/subscribe/display?fileName=${image.imgName}`}
                     alt={`썸네일 ${index}`}
-                    onClick={() => handleThumbnailClick(images.imageURL)} /> : ''
-                }
+                    onClick={() => handleThumbnailClick(image.imageURL)} />
+                 {/* : '' */}
+                {/* } */}
             </li>
         ));
     };
 
     const deleteArticle = (e) => {
         sweetalertDelete1('삭제하시겠습니까?', () => {
-            axios.delete(`http://localhost:8080/subscribe/subscribeLessionDelete/${sno}`, {
+            axios.delete(`/subscribe/subscribeLessionDelete/${sno}`, {
                 // sno: sno
             }).then(response => {
             }).catch(error => {
@@ -145,7 +149,7 @@ const SubscribeLRead = (props) => {
             Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
             let Json_data = JSON.parse(Json_form);
 
-            axios.post('http://localhost:8080/sreplies/add', Json_data)
+            axios.post('/sreplies/add', Json_data)
                 .then(response => {
                     try {
                         if (response.data == "SUCCESS") {
@@ -170,7 +174,7 @@ const SubscribeLRead = (props) => {
     }
     
     const callReplyListApi = (sno) => {
-        axios.get(`http://localhost:8080/sreplies/list/${sno}`)
+        axios.get(`/sreplies/list/${sno}`)
         .then(response => {
             try {
                     setResponseReplyList(response);
@@ -226,7 +230,7 @@ const SubscribeLRead = (props) => {
 
     const deleteComment = (rno) => {
         sweetalertDelete2('삭제하시겠습니까?', () => {
-            axios.delete(`http://localhost:8080/sreplies/delete/${rno}`, {
+            axios.delete(`/sreplies/delete/${rno}`, {
             }).then(response => {
                 if (response.data == "SUCCESS") {
                     callReplyListApi(sno);
@@ -274,7 +278,7 @@ const SubscribeLRead = (props) => {
     };
 
     const handleEditSubmit = () => {
-        axios.put(`http://localhost:8080/sreplies/update/${selectRno}`, {
+        axios.put(`/sreplies/update/${selectRno}`, {
             rno: selectRno,
             rcomment: editedContent,
         }).then(response => {
@@ -405,7 +409,7 @@ const SubscribeLRead = (props) => {
                                             }
                                         }}>
                                         {selectedImage && (
-                                            <img src={`http://localhost:8080/subscribe/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
+                                            <img src={`/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
                                         )}
                                     </Modal>
                                 </table>

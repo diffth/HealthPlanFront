@@ -58,7 +58,7 @@ const SubscribeLList = () => {
                     <td> {num} </td>
                     <td>{
                         data.titleimg != null
-                        ? <img src={`http://localhost:8080/subscribe/display?fileName=${data.titleimg}`} width='35px' height='35px'/>
+                        ? <img src={`/subscribe/display?fileName=${data.titleimg}`} width='35px' height='35px'/>
                         : <img src={require(`../../img/layout/exerciseMan.gif`)} width='40px' height='40px'/>
                     }
                     </td>

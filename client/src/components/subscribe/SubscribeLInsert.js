@@ -97,7 +97,6 @@ const SubscribeLInsert = () => {
     const handleFileInput2 = (type, e) => {
         const selected = e.target.files[0];
         $('#imagefile2').val(selected ? selected.name : '');
-        // console.log("=============> handleFileInput2 " + selected.name);
         selected.imgType = "M";
         setSelectedFile(selected);
     }

@@ -13,6 +13,7 @@ const SubscribeLRead = (props) => {
     const [spoint, setSpoint] = useState('');
     const [content, setContent] = useState('');
     const [writer, setWriter] = useState('');
+    const [mno, setMno] = useState('');
     const [viewCnt, setViewCnt] = useState('');
     const [regidate, setRegidate] = useState('');
     const [imageDTOList, setImageDTOList] = useState([]);
@@ -38,6 +39,7 @@ const SubscribeLRead = (props) => {
                 setSpoint(response.data.spoint);
                 setContent(response.data.contents);
                 setWriter(response.data.uuid);
+                setMno(response.data.mno);
                 setViewCnt(response.data.counts);
                 setRegidate(response.data.wdate);
                 setImageDTOList(response.data.imageDTOList);
@@ -60,14 +62,28 @@ const SubscribeLRead = (props) => {
 
     const renderImages = () => {
         const imageList = imageDTOList;
+        
+        return imageList.map((images, index) => (
+            <li className="hidden_type" key={index}>
+                {images.imgType == 'A' ?
+                    <img src={`http://localhost:8080/subscribe/display?fileName=${images.imgName}`}
+                    alt={`썸네일 ${index}`}
+                    onClick={() => handleThumbnailClick(images.imageURL)} /> : ''
+                }
+            </li>
+        ));
+    };
+        
+    const renderMainImages = () => {
+        const imageList = imageDTOList;
 
         return imageList.map((images, index) => (
             <li className="hidden_type" key={index}>
-                <img
-                    src={`http://localhost:8080/subscribe/display?fileName=${images.imgName}`}
+                {images.imgType == 'M' ?
+                    <img src={`http://localhost:8080/subscribe/display?fileName=${images.imgName}`}
                     alt={`썸네일 ${index}`}
-                    onClick={() => handleThumbnailClick(images.imageURL)}
-                />
+                    onClick={() => handleThumbnailClick(images.imageURL)} /> : ''
+                }
             </li>
         ));
     };
@@ -174,7 +190,6 @@ const SubscribeLRead = (props) => {
             let data = replyList[i]
             const isCurrentUserCommentOwner = true;
             // const isCurrentUserCommentOwner = data.replyer === currentUser;
-            // const formattedDate = moment(data.regdate).fromNow();
 
             result.push(
                 <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '19px' }}>
@@ -294,6 +309,16 @@ const SubscribeLRead = (props) => {
                                 <table class="table_ty1">
                                     <tr>
                                         <th>
+                                            대표이미지
+                                        </th>
+                                        <td className="fileBox fileBox1">
+                                            <ul id="upload_mainimg">
+                                                {renderMainImages()}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
                                             <label for="title">강의제목</label>
                                         </th>
                                         <td>
@@ -403,7 +428,8 @@ const SubscribeLRead = (props) => {
                             </tr>
                             <tr id='replyerDiv'>
                                 <td>
-                                    <input type="text" name="mno" id="replyerVal" value={'1'} />
+                                    <input type="text" name="uuid" id="replyerVal" value={writer} />
+                                    <input type="hidden" name="mno" id="replyerVal" value={mno} />
                                 </td>
                             </tr>
                             <tr>

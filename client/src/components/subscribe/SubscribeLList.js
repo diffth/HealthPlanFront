@@ -58,8 +58,8 @@ const SubscribeLList = () => {
                     <td> {num} </td>
                     <td>{
                         data.titleimg != null
-                        ? <img src={`http://localhost:8080/subscribe/display?fileName=${data.titleimg}`} />
-                        : <img src={require(`../../img/layout/exerciseMan.gif`)} />
+                        ? <img src={`http://localhost:8080/subscribe/display?fileName=${data.titleimg}`} width='35px' height='35px'/>
+                        : <img src={require(`../../img/layout/exerciseMan.gif`)} width='40px' height='40px'/>
                     }
                     </td>
                     <td><Link to={`/SubscribeLRead/${data.sno}`}>{data.title}{data.replycnt > 0 && ` [${data.replycnt}]`}</Link></td>
@@ -144,10 +144,10 @@ const SubscribeLList = () => {
                 </div>
 
                 <div className="list_cont list_cont_admin">
-                    <table className="table_ty1 ad_tlist">
+                    <table className="table_ty1 ad_slist">
                         <tr>
                             <th>번호</th>
-                            <th>대표</th>
+                            <th>강의이미지</th>
                             <th>강의제목</th>
                             <th>강의등록</th>
                             <th>수강료</th>
@@ -155,7 +155,7 @@ const SubscribeLList = () => {
                             <th>등록일</th>
                         </tr>
                     </table>
-                    <table id="appendNboardList" className="table_ty2 ad_tlist">
+                    <table id="appendNboardList" className="table_ty2 ad_slist">
                         {append_SboardList}
                     </table>
                     <div id="spaging">

@@ -110,7 +110,6 @@ const SubscribeLInsert = () => {
     
 
     const handlePostImage = async () => {
-        // console.log("========================> " + selectedFile.imgType);
         const formData = new FormData();
         const itype = selectedFile.imgType;
         formData.append('uploadFiles', selectedFile);

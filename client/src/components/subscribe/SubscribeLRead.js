@@ -67,12 +67,12 @@ const SubscribeLRead = (props) => {
         
         return imageList.map((images, index) => (
             <li className="hidden_type" key={index}>
-                {/* {images.imgType == 'A' ? */}
+                {images.imgType == 'A' ?
                     <img src={`/subscribe/display?fileName=${images.imgName}`}
                     alt={`썸네일 ${index}`}
                     onClick={() => handleThumbnailClick(images.imageURL)} /> 
-                    {/* : '' */}
-                {/* } */}
+                    : ''
+                }
             </li>
         ));
     };
@@ -82,12 +82,12 @@ const SubscribeLRead = (props) => {
 
         return mainImgList.map((image, index) => (
             <li className="hidden_type1" key={index}>
-                {/* {images.imgType == 'M' ? */}
+                {image.imgType == 'M' ?
                     <img src={`/subscribe/display?fileName=${image.imgName}`}
                     alt={`썸네일 ${index}`}
                     onClick={() => handleThumbnailClick(image.imageURL)} />
-                 {/* : '' */}
-                {/* } */}
+                 : ''
+                }
             </li>
         ));
     };
@@ -409,7 +409,7 @@ const SubscribeLRead = (props) => {
                                             }
                                         }}>
                                         {selectedImage && (
-                                            <img src={`/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
+                                            <img src={`/subscribe/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
                                         )}
                                     </Modal>
                                 </table>

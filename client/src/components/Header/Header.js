@@ -12,6 +12,17 @@ const Header = () => {
     const [activeMenu, setActiveMenu] = useState('/');
     const [menuVisible, setMenuVisible] = useState(false);
     const [view, setView] = useState(false);
+    const [submenuVisible, setSubmenuVisible] = useState(false); // 서브메뉴
+
+     /*
+        const MENU_LIST = [
+            { title: '커뮤니티', list: [ '식단', '운동' ] },
+            { title: '챌린지', list: [ '챌린지'] },
+            { title: '구독', list: [ '구독', '강의' ] },
+            { title: 'FAQ', list: [ 'FAQ' ] },
+            { title: '마이페이지', list: [ '마이페이지' ] }
+        ];
+    */
 
     useEffect(() => {
         // 특정 경로에서만 헤더를 숨기기
@@ -33,8 +44,6 @@ const Header = () => {
             if (response.data) {
                 setUuid(response.data.uuid); // uuid 설정
                 //setName(response.data.name); // name 설정 가능하면 설정
-                // setRuuid(response.data.uuid);
-                // setRmno(response.data.mno);
             }
         }).catch(error => {
             console.error('Error fetching UUID:', error);
@@ -58,6 +67,11 @@ const Header = () => {
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
     };
+
+    /* 서브메뉴 클릭 핸들러 */
+    const toggleSubmenu = () => {
+        setSubmenuVisible(!submenuVisible);
+    }
 
     return (
         <header className="gnb_box">
@@ -94,26 +108,41 @@ const Header = () => {
                                     홈
                                 </Link>
                             </li>
-                            <li className={`menulist ${window.location.pathname === '/' ? 'active' : ''}`}>
+                            {/* <li className={`menulist ${window.location.pathname === '/' ? 'active' : ''}`}>
                                 <Link to={'/'} onClick={() => handleMenuClick('/')}>
-                                커뮤니티
+                                    커뮤니티
                                 </Link>
-                            </li>
-                            <li className={`menulist ${window.location.pathname === '/' ? 'active' : ''}`}>
+                            </li> */}
+                            <li className={`menulist ${window.location.pathname === '/ChallengeList' ? 'active' : ''}`}>
                                 <Link to={'/ChallengeList'} onClick={() => handleMenuClick('/ChallengeList')}>
-                                챌린지
+                                    챌린지
                                 </Link>
                             </li>
-                            <li className="menulist">
-                                <Link to={'/SubscribeLList'} onClick={() => handleMenuClick('')}>
+                            <li className={`menulist 
+                                                ${ 
+                                                    (window.location.pathname === '/SubscribeLList' || window.location.pathname === '/SubscribeList') ? 'active' : ''
+                                                }`}
+                                            onMouseEnter={toggleSubmenu}
+                                            onMouseLeave={toggleSubmenu} >
+                                <Link to={'/SubscribeLList'} onClick={() => handleMenuClick('/SubscribeLList')}>
                                     구독
                                 </Link>
+                                {submenuVisible && (
+                                    <ul className="submenu">
+                                        <li className="submenu-item">
+                                            <Link to={'/SubscribeList'}>구독</Link>
+                                        </li>
+                                        <li className="submenu-item">
+                                            <Link to={'/SubscribeLList'}>강의</Link>
+                                        </li>
+                                    </ul>
+                                )}
                             </li>
-                            <li className="menulist">
-                                {/* <Link to={'/VboardList'} onClick={() => handleMenuClick('')}> */}
+                            {/* <li className="menulist">
+                                <Link to={'/VboardList'} onClick={() => handleMenuClick('')}>
                                 FAQ
-                                {/* </Link> */}
-                            </li>
+                                </Link> 
+                            </li> */}
                             <li className={`menulist ${window.location.pathname === '/MyPage' ? 'active' : ''}`}>
                                 <Link to={'/MyPage'} onClick={() => handleMenuClick('/MyPage')}>
                                     마이페이지

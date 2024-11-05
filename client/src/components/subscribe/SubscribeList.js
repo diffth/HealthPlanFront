@@ -22,7 +22,7 @@ const SubscribeLList = () => {
     }, []);
 
     const callSboardListApi = (page) => {
-        axios.get(`http://localhost:8080/subscribe/subscribeList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
+        axios.get(`/subscribe/subscribeList?page=${page}&searchType=${searchtype}&keyword=${keyword}`
             // sno: sno
         ).then(response => {
             try {
@@ -45,22 +45,23 @@ const SubscribeLList = () => {
         for (let i = 0; i < nBoardList.length; i++) {
             let data = nBoardList[i];
             
-            var date = data.wdate;
-            var year = date.substr(0,4);
-            var month = date.substr(5,2);
-            var day = date.substr(8,2);
-            var reg_date = year +'.'+month+'.'+day;
-
             //list num
             var num = (nBoard.pageMaker.totalCount - (nBoard.pageMaker.cri.page - 1) * nBoard.pageMaker.cri.perPageNum - i);
 
             result.push(
                 <tr className="hidden_type">
                     <td> {num} </td>
+                    <td>{
+                        data.titleimg != null
+                        ? <img src={`/subscribe/display?fileName=${data.titleimg}`} width='35px' height='35px'/>
+                        : <img src={require(`../../img/layout/avatar.jpg`)} width='30px' height='30px'/>
+                    }
+                    </td>
                     <td><Link to={`/SubscribeRead/${data.sno}`}>{data.title}{data.replycnt > 0 && ` [${data.replycnt}]`}</Link></td>
                     <td> {data.uuid} </td>
+                    <td> {data.spoint} </td>
                     <td> {data.counts} </td>
-                    <td> {reg_date} </td>
+                    <td> {data.wdate} </td>
                 </tr>
             )
         }
@@ -138,16 +139,18 @@ const SubscribeLList = () => {
                 </div>
 
                 <div className="list_cont list_cont_admin">
-                    <table className="table_ty1 ad_tlist">
+                    <table className="table_ty1 ad_slist">
                         <tr>
                             <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
+                            <th>구독이미지</th>
+                            <th>전문가구독</th>
+                            <th>전문가</th>
+                            <th>구독료</th>
                             <th>조회수</th>
                             <th>작성일</th>
                         </tr>
                     </table>
-                    <table id="appendNboardList" className="table_ty2 ad_tlist">
+                    <table id="appendNboardList" className="table_ty2 ad_slist">
                         {append_SboardList}
                     </table>
                     <div id="spaging">

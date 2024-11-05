@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-// import $ from 'jquery';
 
 // export const API_SERVER_HOST = "http://localhost:8080";
 // const prefix = `${API_SERVER_HOST}/subscribe`;
 
 const SubscribeLList = () => {
-
-    //const history = useHistory();
 
     const [append_SboardList, setAppend_SboardList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

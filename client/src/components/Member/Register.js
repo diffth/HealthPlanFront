@@ -94,7 +94,7 @@ const Register = () => {
             mtype
         };
 
-        axios.post('http://localhost:8080/member/register', userData)
+        axios.post(`/member/register`, userData)
             .then(response => {
                 if (response && response.data === "success") {
                     sweetalert('회원가입 되었습니다.', '', 'success', '확인')

@@ -40,7 +40,7 @@ const SubscribeLRead = (props) => {
         const token = cookie.load('token');
 
         // 2. token을 서버로 보내고 uuid를 받아오기
-        axios.post('/member/loginCookie', {
+        axios.post(`/member/loginCookie`, {
             token: token
         }).then(response => {
             const uuid = response.data.uuid;

@@ -33,7 +33,7 @@ const SubscribeLRead = (props) => {
     }, [])
 
     const callNboardInfoApi = async () => {
-        axios.get(`http://localhost:8080/subscribe/subscribeLessionRead/${sno}`, {
+        axios.get(`/subscribe/subscribeLessionRead/${sno}`, {
         }).then(response => {
             try {
                 setTitle(response.data.title);

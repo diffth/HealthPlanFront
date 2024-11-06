@@ -38,6 +38,7 @@ const SubscribeLUpdate = (props) => {
                 setImgType(response.data.imgType);
                 setImageDTOList(response.data.imageDTOList);
                 setMainImageList(response.data.mainImage);
+                
                 setImageList(response.data.imageDTOList.map(image => ({
                     thumbnailURL: image.imgName
                 })));
@@ -158,7 +159,7 @@ const SubscribeLUpdate = (props) => {
         formData.append('uploadFiles', selectedFile);
 
         try {
-            const res = await axios.post("/subscribe/uploadAjax", formData);
+            const res = await axios.post(`/subscribe/uploadAjax`, formData);
             const { fileName, uuid, folderPath, imageURL, thumbnailURL, imgType } = res.data[0];
 
             setImageDTOList((prevImageDTOList) => [

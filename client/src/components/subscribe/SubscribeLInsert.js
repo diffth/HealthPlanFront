@@ -57,7 +57,7 @@ const SubscribeLInsert = () => {
                 imageDTOList: imageDTOList,
             };
 
-            axios.post('/subscribe/subscribeLessionInsert', Json_data)
+            axios.post(`/subscribe/subscribeLessionInsert`, Json_data)
                 .then(response => {
                     try {
                         if (response.data == "success") {
@@ -86,21 +86,18 @@ const SubscribeLInsert = () => {
     }
     
     // 파일 선택 input의 값이 변경될 때 실행되는 메서드
-    const handleFileInput = (type, e) => {
+    const handleFileInput = (type, e, itype) => {
         const selected = e.target.files[0];
-        $('#imagefile').val(selected ? selected.name : '');
-        selected.imgType = "A";
+
+        if(itype == 'M'){
+            $('#imagefile2').val(selected ? selected.name : '');
+        } else {
+            $('#imagefile').val(selected ? selected.name : '');
+        }
+        selected.imgType = itype;
         setSelectedFile(selected);
     }
     
-    //대표이미지
-    const handleFileInput2 = (type, e) => {
-        const selected = e.target.files[0];
-        $('#imagefile2').val(selected ? selected.name : '');
-        selected.imgType = "M";
-        setSelectedFile(selected);
-    }
-
     useEffect(() => {
         if (selectedFile) {
                 handlePostImage();
@@ -136,15 +133,15 @@ const SubscribeLInsert = () => {
         }
     }
 
-    const handleRemoveAllThumbnails = () => {
-        $('.fileBox1 ul').empty();
-        $('#imagefile').val('');
-        setImageDTOList([]);
-    };
-
-    const handleRemoveAllThumbnails2 = () => {
-        $('.fileBox2 ul').empty();
-        $('#imagefile2').val('');
+    const handleRemoveAllThumbnails = (itype) => {
+        
+        if(itype == 'M'){
+            $('.fileBox2 ul').empty();
+            $('#imagefile2').val('');
+        } else{
+            $('.fileBox1 ul').empty();
+            $('#imagefile').val('');
+        }
         setImageDTOList([]);
     };
 
@@ -175,8 +172,8 @@ const SubscribeLInsert = () => {
                                         <td className="fileBox fileBox2">
                                             <label htmlFor='imageSelect2' className="btn_file">파일선택</label>
                                             <input type="text" id="imagefile2" className="fileName fileName1" readOnly="readonly" placeholder="선택된 파일 없음" />
-                                            <input type="file" id="imageSelect2" className="uploadBtn uploadBtn1" onChange={e => handleFileInput2('file', e)} multiple />
-                                            <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }} onClick={handleRemoveAllThumbnails2}>X</button>
+                                            <input type="file" id="imageSelect2" className="uploadBtn uploadBtn1" onChange={e => handleFileInput('file', e, 'M')} multiple />
+                                            <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }} onClick={e => handleRemoveAllThumbnails('M')}>X</button>
                                             <ul id="upload_img2">
                                             </ul>
                                         </td>
@@ -212,8 +209,8 @@ const SubscribeLInsert = () => {
                                         <td className="fileBox fileBox1">
                                             <label htmlFor='imageSelect' className="btn_file">파일선택</label>
                                             <input type="text" id="imagefile" className="fileName fileName1" readOnly="readonly" placeholder="선택된 파일 없음" />
-                                            <input type="file" id="imageSelect" className="uploadBtn uploadBtn1" onChange={e => handleFileInput('file', e)} multiple />
-                                            <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }} onClick={handleRemoveAllThumbnails}>X</button>
+                                            <input type="file" id="imageSelect" className="uploadBtn uploadBtn1" onChange={e => handleFileInput('file', e, 'A')} multiple />
+                                            <button type="button" className='bt_ty2' style={{ paddingTop: 5, paddingLeft: 10, paddingRight: 10 }} onClick={e => handleRemoveAllThumbnails('A')}>X</button>
                                             <ul id="upload_img">
                                             </ul>
                                         </td>

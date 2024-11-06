@@ -5,19 +5,21 @@ import $ from 'jquery';
 import Swal from 'sweetalert2'
 import cookie from 'react-cookies';
 import Modal from 'react-modal';
-// import moment from 'moment';
-// import 'moment/locale/ko';
 
 const SubscribeLRead = (props) => {
     const { sno } = useParams();
 
-    const [memNickName] = useState(cookie.load('memNickName'));
     const [title, setTitle] = useState('');
+    const [spoint, setSpoint] = useState('');
     const [content, setContent] = useState('');
     const [writer, setWriter] = useState('');
+    const [mno, setMno] = useState('');
+    const [ruuid] = useState(cookie.load('uuid'));
+    const [rmno] = useState(cookie.load('mno'));
     const [viewCnt, setViewCnt] = useState('');
     const [regidate, setRegidate] = useState('');
     const [imageDTOList, setImageDTOList] = useState([]);
+    const [mainImage, setMainImageList] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
     const [append_ReplyList, setAppend_ReplyList] = useState([]);
@@ -26,26 +28,27 @@ const SubscribeLRead = (props) => {
     const [editedContent, setEditedContent] = useState('');
     const [selectRno, setSelectRno] = useState('');
 
-
     useEffect(() => {
         callNboardInfoApi();
         callReplyListApi(sno);
         // $("#modifyButton").hide();
         // $("#replyerDiv").hide();
-        // $("#snoDiv").hide();
     }, [])
 
     const callNboardInfoApi = async () => {
-        axios.get(`http://localhost:8080/subscribe/subscribeRead/${sno}`, {
+        axios.get(`/subscribe/subscribeRead/${sno}`, {
             //sno: sno,
         }).then(response => {
             try {
                 setTitle(response.data.title);
+                setSpoint(response.data.spoint);
                 setContent(response.data.contents);
                 setWriter(response.data.uuid);
+                setMno(response.data.mno);
                 setViewCnt(response.data.counts);
                 setRegidate(response.data.wdate);
                 setImageDTOList(response.data.imageDTOList);
+                setMainImageList(response.data.mainImage);
             }
             catch (error) {
                 alert('게시글데이터 받기 오류')
@@ -68,21 +71,37 @@ const SubscribeLRead = (props) => {
 
     const renderImages = () => {
         const imageList = imageDTOList;
-
+        
         return imageList.map((images, index) => (
             <li className="hidden_type" key={index}>
-                <img
-                    src={`http://localhost:8080/subscribe/display?fileName=${images.imgName}`}
+                {images.imgType == 'A' ?
+                    <img src={`/subscribe/display?fileName=${images.imgName}`}
                     alt={`썸네일 ${index}`}
-                    onClick={() => handleThumbnailClick(images.imageURL)}
-                />
+                    onClick={() => handleThumbnailClick(images.imageURL)} /> 
+                    : ''
+                }
+            </li>
+        ));
+    };
+
+    const renderMainImages = () => {
+        const mainImgList = mainImage;
+
+        return mainImgList.map((image, index) => (
+            <li className="hidden_type1" key={index}>
+                {image.imgType == 'M' ?
+                    <img src={`/subscribe/display?fileName=${image.imgName}`}
+                    alt={`썸네일 ${index}`}
+                    onClick={() => handleThumbnailClick(image.imageURL)} />
+                 : ''
+                }
             </li>
         ));
     };
 
     const deleteArticle = (e) => {
         sweetalertDelete1('삭제하시겠습니까?', () => {
-            axios.delete(`http://localhost:8080/subscribe/subscribeDelete/${sno}`, {
+            axios.delete(`/subscribe/subscribeDelete/${sno}`, {
                 // sno: sno
             }).then(response => {
                 
@@ -138,7 +157,7 @@ const SubscribeLRead = (props) => {
             Json_form = "{\"" + Json_form.replace(/\&/g, '\",\"').replace(/=/gi, '\":"') + "\"}";
             let Json_data = JSON.parse(Json_form);
 
-            axios.post('http://localhost:8080/sreplies/add', Json_data)
+            axios.post('/sreplies/add', Json_data)
                 .then(response => {
                     try {
                         if (response.data == "SUCCESS") {
@@ -163,16 +182,15 @@ const SubscribeLRead = (props) => {
     }
     
     const callReplyListApi = (sno) => {
-        axios.get(`http://localhost:8080/sreplies/list/${sno}`)
-        .then(response => {
-            try {
-                    setResponseReplyList(response);
-                    setAppend_ReplyList(ReplyListAppend(response.data));
-                } catch (error) {
-                    alert('작업중 오류가 발생하였습니다1.');
-                }
-            })
-            .catch(error => { alert('작업중 오류가 발생하였습니다2.'); return false; });
+        axios.get(`/sreplies/list/${sno}`)
+            .then(response => {
+                try {
+                        setResponseReplyList(response);
+                        setAppend_ReplyList(ReplyListAppend(response.data));
+                    } catch (error) {
+                        alert('작업중 오류가 발생하였습니다1.');
+                    }
+            }).catch(error => { alert('작업중 오류가 발생하였습니다2.'); return false;});
     }
 
     const ReplyListAppend = (replyList) => {
@@ -183,7 +201,6 @@ const SubscribeLRead = (props) => {
             let data = replyList[i]
             const isCurrentUserCommentOwner = true;
             // const isCurrentUserCommentOwner = data.replyer === currentUser;
-            // const formattedDate = moment(data.regdate).fromNow();
 
             result.push(
                 <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '19px' }}>
@@ -200,7 +217,6 @@ const SubscribeLRead = (props) => {
                                 </span>
                             </p>
                             <p style={{ color: '#525252' }}>{data.rcomment}
-                                {/* <input type="text" value={data.rcomment} style={{ flex: '1', marginRight: '8px', height: '50px' }} /> */}
                             </p>
                         </div>
                     </div>
@@ -220,7 +236,7 @@ const SubscribeLRead = (props) => {
 
     const deleteComment = (rno) => {
         sweetalertDelete2('삭제하시겠습니까?', () => {
-            axios.delete(`http://localhost:8080/sreplies/delete/${rno}`, {
+            axios.delete(`/sreplies/delete/${rno}`, {
             }).then(response => {
                 if (response.data == "SUCCESS") {
                     callReplyListApi(sno);
@@ -270,7 +286,7 @@ const SubscribeLRead = (props) => {
     };
 
     const handleEditSubmit = () => {
-        axios.put(`http://localhost:8080/sreplies/update/${selectRno}`, {
+        axios.put(`/sreplies/update/${selectRno}`, {
             rno: selectRno,
             rcomment: editedContent,
         }).then(response => {
@@ -305,24 +321,42 @@ const SubscribeLRead = (props) => {
                                 <table class="table_ty1">
                                     <tr>
                                         <th>
-                                            <label for="title">제목</label>
+                                            대표이미지
+                                        </th>
+                                        <td className="fileBox fileBox1">
+                                            <ul id="upload_mainimg">
+                                                {renderMainImages()}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="title">전문가구독 제목</label>
                                         </th>
                                         <td>
                                             <input type="text" name="title" id="titleVal" readOnly="readonly" value={title} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label for="spoint">구독료</label>
+                                        </th>
+                                        <td>
+                                            <input type="text" name="spoint" id="spointVal" readOnly="readonly" value={spoint} />
                                         </td>
                                     </tr>
                                 </table>
                                 <table class="table_ty1">
                                     <tr>
                                         <th>
-                                            <label for="writer">작성자</label>
+                                            <label for="writer">전문가</label>
                                         </th>
                                         <td>
                                             <input type="text" name="writer" id="writerVal" readOnly="readonly" value={writer} />
                                         </td>
 
                                         <th style={{ textAlign: "center" }}>
-                                            <label for="regDate">작성일</label>
+                                            <label for="regDate">등록일</label>
                                         </th>
                                         <td>
                                             <input type="text" name="regiDate" id="regiDateVal" readOnly="readonly" value={trimmedRegidate} />
@@ -339,7 +373,7 @@ const SubscribeLRead = (props) => {
                                 <table class="table_ty1">
                                     <tr>
                                         <th>
-                                            <label for="Content">내용</label>
+                                            <label for="Content">전문가구독 내용</label>
                                         </th>
                                         <td>
                                             <textarea style={{ padding: '15px' }} name="content" id="contentVal" rows="" cols="" readOnly="readonly" value={content}></textarea>
@@ -383,7 +417,7 @@ const SubscribeLRead = (props) => {
                                             }
                                         }}>
                                         {selectedImage && (
-                                            <img src={`http://localhost:8080/subscribe/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
+                                            <img src={`/subscribe/display?fileName=${selectedImage}`} alt="선택한 썸네일" />
                                         )}
                                     </Modal>
                                 </table>
@@ -406,7 +440,8 @@ const SubscribeLRead = (props) => {
                             </tr>
                             <tr id='replyerDiv'>
                                 <td>
-                                    <input type="text" name="mno" id="replyerVal" value={'1'} />
+                                    <input type="text" name="uuid" id="replyerVal" value={ruuid} />
+                                    <input type="hidden" name="mno" id="replyerVal" value={rmno} />
                                 </td>
                             </tr>
                             <tr>

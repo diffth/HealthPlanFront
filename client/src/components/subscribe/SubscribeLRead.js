@@ -14,8 +14,8 @@ const SubscribeLRead = (props) => {
     const [content, setContent] = useState('');
     const [writer, setWriter] = useState('');
     const [mno, setMno] = useState('');
-    const [ruuid, setRuuid] = useState(cookie.load('uuid'));
-    const [rmno, setRmno] = useState('');
+    const [ruuid] = useState(cookie.load('uuid'));
+    const [rmno] = useState(cookie.load('mno'));
     const [viewCnt, setViewCnt] = useState('');
     const [regidate, setRegidate] = useState('');
     const [imageDTOList, setImageDTOList] = useState([]);
@@ -30,30 +30,9 @@ const SubscribeLRead = (props) => {
 
 
     useEffect(() => {
-        callMemberInfoApi();
         callNboardInfoApi();
         callReplyListApi(sno);
     }, [])
-
-    const callMemberInfoApi = () => {
-        // 1. 쿠키에서 토큰 가져오기 
-        const token = cookie.load('token');
-
-        // 2. token을 서버로 보내고 uuid를 받아오기
-        axios.post(`/member/loginCookie`, {
-            token: token
-        }).then(response => {
-            const uuid = response.data.uuid;
-            
-            try {
-                const data = response.data.vo;
-                setRuuid(data.UUID);      // 회원 아이디
-                setRmno(data.MNO);        // 회원 번호
-            } catch (error) {
-                alert('회원데이터를 읽어오는 중에 오류가 발생했습니다.');
-            }
-        }).catch(error => { alert('회원데이터 받기 오류2'); return false; });
-    };
 
     const callNboardInfoApi = async () => {
         axios.get(`/subscribe/subscribeLessionRead/${sno}`, {
@@ -233,7 +212,6 @@ const SubscribeLRead = (props) => {
                                 </span>
                             </p>
                             <p style={{ color: '#525252' }}>{data.rcomment}
-                                {/* <input type="text" value={data.rcomment} style={{ flex: '1', marginRight: '8px', height: '50px' }} /> */}
                             </p>
                         </div>
                     </div>

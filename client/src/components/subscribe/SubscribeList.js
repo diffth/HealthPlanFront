@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import cookie from 'react-cookies';
 import axios from "axios";
-import $ from 'jquery';
+// import $ from 'jquery';
 
 const SubscribeLList = () => {
 
@@ -16,6 +17,9 @@ const SubscribeLList = () => {
     const [next, setNext] = useState('');
     const [keyword, setKeyword] = useState('');
     const [searchtype, setSearchtype] = useState('');
+    const [uuid] = useState(cookie.load('uuid'));
+    const [mtype] = useState(cookie.load('mtype'));
+    // const [mno] = useState(cookie.load('mno'));
 
     useEffect(() => {
         callSboardListApi(currentPage);
@@ -157,10 +161,13 @@ const SubscribeLList = () => {
                         {renderSearchPagination()}
                     </div>
                 </div>
-
-                <div className="li_top_sch af">
-                    <Link to={'/SubscribeInsert'} className="sch_bt2 wi_au">글쓰기</Link>
-                </div>
+                {
+                mtype == 't' ?
+                    <div className="li_top_sch af">
+                        <Link to={'/SubscribeInsert'} className="sch_bt2 wi_au">글쓰기</Link>
+                    </div>
+                    : ''
+                }
             </article>
         </section>
     );

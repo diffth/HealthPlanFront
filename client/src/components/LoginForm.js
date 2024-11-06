@@ -7,7 +7,8 @@ import Swal from 'sweetalert2';
 const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용되는 변수 이름
     const [uuid, setUuid] = useState(''); // memId>현재 상태값을 저장하는 변수, 처음엔 빈 문자열로 초기화 / setUuid> memId 상태를 업데이트 할 때 사용하는 함수, 이 함수를 호출해 값을 변경할 수 있게 함
     const [upw, setUpw] = useState('');
-    const [name, setName] = useState('');
+    const [mtype, setMtype] = useState('');
+    // const [name, setName] = useState('');
 
     const sweetalert = (title, contents, icon, confirmButtonText, timer = 0) => {
         Swal.fire({
@@ -27,7 +28,7 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
         if (uuid === '' || upw === '') {
             sweetalert('아이디와 비밀번호를 입력해 주세요.', '', 'error', '닫기');
         } else {
-            axios.post('http://localhost:8080/member/login', {
+            axios.post(`/member/login`, {
                 uuid: uuid, // 서버에 전달될 객체의 키 : 리액트 상태 변수 (사용자가 선언한 값을 담음)
                 upw: upw
             }).then(response => {
@@ -38,6 +39,7 @@ const LoginForm = () => { // memId와 memPw는 화면이나 로직에서 사용�
                     cookie.save('token', response.data.token, { path: '/', expires });
                     cookie.save('uuid', response.data.member.uuid, { path: '/', expires });
                     cookie.save('mno', response.data.member.mno, { path: '/', expires });
+                    cookie.save('mtype', response.data.member.mtype, { path: '/', expires });
                     window.location.href = '/MainForm';
                     sweetalert('로그인 성공', '', 'success', '닫기', 5000);
                     setTimeout(() => {

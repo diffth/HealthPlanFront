@@ -8,10 +8,10 @@ const Header = () => {
 
     const [token, setToken] = useState(cookie.load('token'));
     const [uuid, setUuid] = useState(''); // uuid 상태를 추가
-    const [name, setName] = useState('');
+    // const [name, setName] = useState('');
     const [activeMenu, setActiveMenu] = useState('/');
     const [menuVisible, setMenuVisible] = useState(false);
-    const [view, setView] = useState(false);
+    // const [view, setView] = useState(false);
     const [submenuVisible, setSubmenuVisible] = useState(false); // 서브메뉴
 
      /*
